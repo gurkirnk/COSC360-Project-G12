@@ -1,4 +1,4 @@
-import { addOneToCounter } from "../services/counterService.js";
+import { addOneToCounter } from "./counterService.js";
 
 export async function incrementCounter(req, res) {
   try {

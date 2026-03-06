@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { incrementCounter } from "../controllers/counterController.js";
+import counterRoutes from "../modules/counter/counterRoutes.js";
 
 const router = Router();
 
-router.post("/counter/increment", incrementCounter);
+router.use("/counter", counterRoutes);
 
 export default router;

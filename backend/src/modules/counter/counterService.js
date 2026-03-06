@@ -2,7 +2,7 @@ import {
   getCounterEventCount,
   getCounterTotal,
   insertCounterValue,
-} from "../repositories/counterRepository.js";
+} from "./counterRepository.js";
 
 export async function addOneToCounter() {
   const inserted = await insertCounterValue(1);

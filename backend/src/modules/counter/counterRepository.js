@@ -1,4 +1,4 @@
-import { getDb } from "../db/mongoClient.js";
+import { getDb } from "../../db/mongoClient.js";
 
 export async function insertCounterValue(value) {
   const db = await getDb();
