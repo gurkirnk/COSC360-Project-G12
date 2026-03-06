@@ -17,8 +17,8 @@ export default function HeaderNav() {
 
           <ul className="main-navigation-list">
             <li className="main-navigation-item"><NavLink to="/about">Browse</NavLink></li>
-            <li className="main-navigation-item"><NavLink to="/contact">Login</NavLink></li>
-            <li className="main-navigation-item"><NavLink to="/contact">Register</NavLink></li>
+            <li className="main-navigation-item"><NavLink to="/login">Login</NavLink></li>
+            <li className="main-navigation-item"><NavLink to="/register">Register</NavLink></li>
           </ul>
         }
       />
