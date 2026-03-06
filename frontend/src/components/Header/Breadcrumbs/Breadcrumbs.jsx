@@ -12,6 +12,7 @@ export default function Breadcrumbs() {
       <ol className="breadcrumbs-list">
         {pathnames.map((name, index) => {
           // set the path of the first breadcrumb to '/' as that is always home given the upper thing
+          // reconstruct the path for the other breadcrumbs by slicing the pathnames array up to the current index and joining it with '/'
           const routeTo = index === 0
             ? '/'
             : `/${pathnames.slice(1, index + 1).join('/')}`;
