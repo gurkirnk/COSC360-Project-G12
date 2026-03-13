@@ -2,8 +2,9 @@ import { signup } from "./signupService.js";
 
 export const signupController = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const result = await signup(username, password);
+    const { name, email, password } = req.body;
+    //TODO: are we doing profile pictures? if so, need to change here to handle file upload
+    const result = await signup({ name, email, password });
     return res.status(201).json({ message: "User created successfully", data: result });
   } catch (error) {
     console.error("signupController error:", error);

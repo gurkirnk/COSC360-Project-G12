@@ -1,9 +1,11 @@
+import { ObjectId } from "mongodb";
 import { getDb } from "../../../db/mongoClient.js";
 
-export async function createUser(username, password) {
+export async function createUser({ name, email, password }) {
   const db = await getDb();
   const document = {
-    username,
+    name,
+    email,
     password,
     createdAt: new Date(),
   };
@@ -11,13 +13,23 @@ export async function createUser(username, password) {
   const result = await db.collection("users").insertOne(document);
   return {
     id: result.insertedId.toString(),
-    username: document.username,
+    name: document.name,
+    email: document.email,
     createdAt: document.createdAt,
   };
 }
 
-export async function userExists(username) {
+export async function findUserByEmail(email) {
   const db = await getDb();
-  const user = await db.collection("users").findOne({ username });
-  return user !== null;
+  return await db.collection("users").findOne({ email });
+}
+
+export async function findUserByName(name) {
+  const db = await getDb();
+  return await db.collection("users").findOne({ name });
+}
+
+export async function findUserById(id) {
+  const db = await getDb();
+  return await db.collection("users").findOne({ _id: new ObjectId(id) });
 }
