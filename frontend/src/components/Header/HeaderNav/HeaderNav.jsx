@@ -16,7 +16,7 @@ export default function HeaderNav() {
         unregisteredComponent={
 
           <ul className="main-navigation-list">
-            <li className="main-navigation-item"><NavLink to="/about">Browse</NavLink></li>
+            <li className="main-navigation-item"><NavLink to="/browse">Browse</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/login">Login</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/register">Register</NavLink></li>
           </ul>
