@@ -8,8 +8,8 @@ import { browseListings } from '../lib/api/features/browse';
 export default function BrowsePage() {
 
   const [listings, setlistings] = useState([]);
-  let search = "";
-  let genre = "";
+  const [search, setSearch] = useState("");
+  const [genre, setGenre] = useState("");
 
   async function fetchListings() {
     console.log("fetching...");
@@ -25,12 +25,13 @@ export default function BrowsePage() {
 
   useEffect(() => {
     fetchListings();
-  }, []);
+  }, [search,genre]);
+
 
   return (
     <>
       <h1>Browse</h1>
-      <SearchBar />
+      <SearchBar SearchBarClicked={(newSearch) => setSearch(newSearch)}/>
       <p>
         {listings.toString()}
       </p>
