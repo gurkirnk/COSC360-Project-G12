@@ -3,7 +3,6 @@ import SearchBar from '../components/SearchBar';
 import { browseListings } from '../lib/api/features/browse';
 import { useSearchParams } from "react-router-dom";
 
-//TODO: Allow parameters (genre, search), all the way to the backend
 /*TODO: Format listings/proper empty responce handling (I'll take care of this, just difficult to do when there is no way to create listings in the db)*/
 export default function BrowsePage() {
 
@@ -16,8 +15,6 @@ export default function BrowsePage() {
   useEffect(() => {
 
     async function fetchListings() {
-      console.log(genre);
-      console.log(search);
       try {
         const response = await browseListings({ search, genre });
         setlistings(response.data || response);

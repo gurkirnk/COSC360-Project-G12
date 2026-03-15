@@ -3,8 +3,8 @@ import { retrieveListings } from "./browseService.js";
 export async function getListings(req, res) {
   try {
     //TODO: Use parameters
-
-    const result = await retrieveListings();
+    const {search, genre} = req.query;
+    const result = await retrieveListings({search, genre});
     
     return res.status(200).json({
       message: "Retrieved all matching listings",
