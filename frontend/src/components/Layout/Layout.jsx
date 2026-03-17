@@ -1,5 +1,6 @@
 import Header from '../Header';
 import Footer from '../Footer';
+import RouteContentBoundary from '../RouteContentBoundary';
 import { Outlet } from 'react-router-dom';
 
 export default function Layout({ children, header, footer }) {
@@ -10,7 +11,9 @@ export default function Layout({ children, header, footer }) {
   return (
     <>
       {renderedHeader}
-      <main>{renderedContent}</main>
+      <main>
+        <RouteContentBoundary>{renderedContent}</RouteContentBoundary>
+      </main>
       {renderedFooter}
     </>
   );
