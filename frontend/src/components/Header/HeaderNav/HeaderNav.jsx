@@ -9,7 +9,7 @@ export default function HeaderNav() {
         registeredComponent={
           <ul className="main-navigation-list">
             <li className="main-navigation-item"><NavLink to="/">Home</NavLink></li>
-            <li className="main-navigation-item"><NavLink to="/browse/list">Make A Listing</NavLink></li>
+            <li className="main-navigation-item"><NavLink to="/list">Make A Listing</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/browse">Browse</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/account">Account</NavLink></li>
           </ul>}

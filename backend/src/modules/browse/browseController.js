@@ -2,7 +2,6 @@ import { retrieveListings } from "./browseService.js";
 
 export async function getListings(req, res) {
   try {
-    //TODO: Use parameters
     const {search, genre} = req.query;
     const result = await retrieveListings({search, genre});
     
