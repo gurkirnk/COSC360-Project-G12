@@ -6,7 +6,7 @@ export async function getListings({ search, genre }) {
   const query = {};
 
   if (search) {
-    query.name = { $regex: search, $options: "i" };
+    query.title = { $regex: search, $options: "i" };
   }
 
   if (genre) {
