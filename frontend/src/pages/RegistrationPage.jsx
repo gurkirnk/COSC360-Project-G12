@@ -20,8 +20,9 @@ export default function RegistrationPage() {
     setIsSubmitting(true);
 
     try {
-      await registerUser({ name, email, password });
-      setSuccessMessage("Registration successful.");
+      var result = await registerUser({ name, email, password });
+      setSuccessMessage("Registration successful. " + (JSON.stringify(result)));
+      console.log(result);
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
