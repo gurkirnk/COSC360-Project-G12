@@ -7,6 +7,7 @@ export default function SearchBar({ SearchBarClicked }) {
   const handleSearch = () => {
     // Pass the current input value back to the parent
     SearchBarClicked(inputValue);
+    setInputValue("");
   };
 
 
