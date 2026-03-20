@@ -35,7 +35,7 @@ export default function BrowsePage() {
       <h1>Browse</h1>
       <SearchBar SearchBarClicked={(newSearch) => setSearchParams({search: newSearch, genre: genre})} />
       <p>
-        {JSON.stringify(listings)}
+        {(JSON.stringify(listings) == "{\"results\":[]}")? "No Results Found": JSON.stringify(listings)}
       </p>
     </>
   );
