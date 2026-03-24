@@ -11,9 +11,11 @@
  */
 
 export const AUTH_TOKEN = 'authToken';
+export const AUTH_USER = 'authUser';
 
 const KEYS = {
   AUTH_TOKEN,
+  AUTH_USER,
 };
 
 export default KEYS;
