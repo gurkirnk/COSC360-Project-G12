@@ -13,19 +13,15 @@ export default function BrowsePage() {
   const genre = searchParams.get("genre") || "";
 
   useEffect(() => {
-
     async function fetchListings() {
       try {
         const response = await browseListings({ search, genre });
         setlistings(response.data || response);
       } catch (error) {
-
-      } finally {
-
+        console.error("Failed to load listings:", error);
       }
     }
 
-    
     fetchListings();
   }, [search, genre]);
 
@@ -35,7 +31,7 @@ export default function BrowsePage() {
       <h1>Browse</h1>
       <SearchBar SearchBarClicked={(newSearch) => setSearchParams({search: newSearch, genre: genre})} />
       <p>
-        {(JSON.stringify(listings) == "{\"results\":[]}")? "No Results Found": JSON.stringify(listings)}
+        {JSON.stringify(listings) === "{\"results\":[]}" ? "No Results Found" : JSON.stringify(listings)}
       </p>
     </>
   );
