@@ -1,14 +1,8 @@
 import RegistrationSwitcher from '../../RegistrationSwitcher/RegistrationSwitcher';
 import './HeaderNav.css';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../../contexts/useAuth';
 
 export default function HeaderNav() {
-  const { logout } = useAuth();
-
-  async function handleLogout() {
-    await logout();
-  }
 
   return (
     <nav className="main-navigation" aria-label="main navigation">
