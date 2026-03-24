@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AuthContext } from "./auth-context";
 import { loginUser, logout as logoutRequest, registerUser } from "../lib/api/features/auth";
-import { getItem, removeItem, setItem } from "../lib/storage/fancySessionStorage";
+import fancySessionStorage, { getItem, removeItem, setItem } from "../lib/storage/fancySessionStorage";
 import { AUTH_TOKEN, AUTH_USER } from "../lib/storage/sessionStorageVariables";
 
 function getInitialAuthState() {
@@ -49,8 +49,10 @@ export function AuthProvider({ children }) {
     try {
       return await logoutRequest();
     } catch {
+      console.warn("Logout request failed, but clearing local auth state anyway.");
       return null;
     } finally {
+      fancySessionStorage.clear();
       persistAuth({ token: null, user: null });
     }
   }
