@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { registerUser } from "../lib/api/features/auth";
+import { useAuth } from "../contexts/useAuth";
 
 export default function RegistrationPage() {
+  const { register } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,9 +21,8 @@ export default function RegistrationPage() {
     setIsSubmitting(true);
 
     try {
-      var result = await registerUser({ name, email, password });
-      setSuccessMessage("Registration successful. " + (JSON.stringify(result)));
-      console.log(result);
+      const result = await register({ name, email, password });
+      setSuccessMessage(`Registration successful. Welcome, ${result.user?.name ?? name}.`);
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
