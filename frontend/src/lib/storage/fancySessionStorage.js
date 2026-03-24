@@ -9,12 +9,17 @@ function assertRegistered(key) {
 }
 
 function serialize(value) {
-  return typeof value === 'string' ? value : JSON.stringify(value);
+  return JSON.stringify(value);
 }
 
-function nullOrJsonify(raw) {
+function deserialize(raw) {
   if (raw === null) return null;
-  return JSON.parse(raw);
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return raw;
+  }
 }
 
 export function setItem(key, value) {
@@ -27,7 +32,7 @@ export function getItem(key, defaultValue = null) {
   assertRegistered(key);
   const raw = sessionStorage.getItem(key);
   if (raw === null) return defaultValue;
-  return nullOrJsonify(raw);
+  return deserialize(raw);
 }
 
 export function removeItem(key) {
