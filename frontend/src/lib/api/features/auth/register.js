@@ -1,6 +1,4 @@
 import { apiClient } from "../../api-client";
-import { AUTH_TOKEN } from "../../../storage/sessionStorageVariables";
-import { setItem } from "../../../storage/fancySessionStorage";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
 
@@ -15,6 +13,5 @@ export async function registerUser({ name, email, password }) {
     },
   });
 
-  setItem(AUTH_TOKEN, response.data.token);
   return response.data;
 }
