@@ -1,12 +1,13 @@
 import { ObjectId } from "mongodb";
 import { getDb } from "../../../db/mongoClient.js";
 
-export async function createUser({ name, email, password }) {
+export async function createUser({ name, email, password, role }) {
   const db = await getDb();
   const document = {
     name,
     email,
     password,
+    role,
     createdAt: new Date(),
   };
 
@@ -15,6 +16,7 @@ export async function createUser({ name, email, password }) {
     id: result.insertedId.toString(),
     name: document.name,
     email: document.email,
+    role: document.role,
     createdAt: document.createdAt,
   };
 }

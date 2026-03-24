@@ -1,4 +1,6 @@
 import { createUser, findUserByName, findUserByEmail } from "./signupRepository.js";
+import { signToken } from "../tokens/jwt.js";
+import { USER } from "../roles.js";
 
 const MIN_PASSWORD_LENGTH = 6;
 const MIN_NAME_LENGTH = 3;
@@ -32,9 +34,14 @@ export async function signup({ name, email, password }) {
     throw Object.assign(new Error("User already exists with this name."), { statusCode: 409 });
   }
 
-  return await createUser({
+  const user = await createUser({
     name: normalizedName,
     email: normalizedEmail,
     password: normalizedPassword,
+    role: USER,
   });
+
+  const token = signToken({ sub: user.id, name: user.name, role: user.role }, { expiresIn: "7d" });
+
+  return { user, token };
 }
