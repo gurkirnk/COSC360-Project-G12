@@ -1,6 +1,6 @@
 import { apiClient } from "../../api-client";
-import { AUTH_TOKEN } from "../../storage/sessionStorageVariables";
-import { setItem } from "../../storage/fancySessionStorage";
+import { AUTH_TOKEN } from "../../../storage/sessionStorageVariables";
+import { setItem } from "../../../storage/fancySessionStorage";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
 
