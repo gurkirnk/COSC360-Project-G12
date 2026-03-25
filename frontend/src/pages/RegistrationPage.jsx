@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AuthPage from "../components/AuthPage";
 import { useAuth } from "../contexts/useAuth";
 
 export default function RegistrationPage() {
@@ -14,7 +15,7 @@ export default function RegistrationPage() {
     const name = formData.get("name")?.toString().trim() ?? "";
     const email = formData.get("email")?.toString().trim() ?? "";
     const password = formData.get("password")?.toString() ?? "";
-    //TODO: handle the profile picture in some way
+    // TODO: handle the profile picture in some way
 
     setErrorMessage("");
     setSuccessMessage("");
@@ -31,29 +32,69 @@ export default function RegistrationPage() {
   }
 
   return (
-    <>
-      <h1>Registration</h1>
-      <form onSubmit={handleRegisterSubmit}>
-        <label htmlFor="name">
-          Name:
-          <input id="name" type="text" name="name" required />
-        </label>
-        <label htmlFor="email">
-          Email:
-          <input id="email" type="email" name="email" required />
-        </label>
-        <label htmlFor="password">
-          password:
-          <input id="password" type="password" name="password" minLength="6" required />
-        </label>
-        <label htmlFor="profilePicture">
-          Profile Picture:
-          <input id="profilePicture" type="file" name="profilePicture" accept="image/*" />
-        </label>
-        <input type="submit" value={isSubmitting ? "Submitting..." : "Submit"} disabled={isSubmitting} />
+    <AuthPage title="Register">
+      <form className="auth-form" onSubmit={handleRegisterSubmit}>
+        <div className="field">
+          <label htmlFor="name">Name</label>
+          <input
+            className="input"
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            autoComplete="name"
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            className="input"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="email"
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            className="input"
+            id="password"
+            type="password"
+            name="password"
+            minLength="6"
+            placeholder="Minimum 6 characters"
+            autoComplete="new-password"
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="profilePicture">Profile Picture</label>
+          <input
+            className="input input--file"
+            id="profilePicture"
+            type="file"
+            name="profilePicture"
+            accept="image/*"
+          />
+        </div>
+
+        <input
+          className="submit"
+          type="submit"
+          value={isSubmitting ? "Submitting..." : "Create Account"}
+          disabled={isSubmitting}
+        />
       </form>
-      {errorMessage ? <p>{errorMessage}</p> : null}
-      {successMessage ? <p>{successMessage}</p> : null}
-    </>
+
+      {errorMessage ? <p className="message message--error">{errorMessage}</p> : null}
+      {successMessage ? <p className="message message--success">{successMessage}</p> : null}
+    </AuthPage>
   );
 }

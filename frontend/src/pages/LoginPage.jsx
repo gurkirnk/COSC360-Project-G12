@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AuthPage from "../components/AuthPage";
 import { useAuth } from "../contexts/useAuth";
 
 export default function LoginPage() {
@@ -29,21 +30,44 @@ export default function LoginPage() {
   }
 
   return (
-    <>
-      <h1>Login Page</h1>
-      <form onSubmit={loginSubmit}>
-        <label htmlFor="email">
-          Email:
-          <input id="email" type="email" name="email" required />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input id="password" type="password" name="password" required />
-        </label>
-        <input type="submit" value={isSubmitting ? "Submitting..." : "Submit"} disabled={isSubmitting} />
+    <AuthPage title="Login">
+      <form className="auth-form" onSubmit={loginSubmit}>
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            className="input"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="email"
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            className="input"
+            id="password"
+            type="password"
+            name="password"
+            placeholder="********"
+            autoComplete="current-password"
+            required
+          />
+        </div>
+
+        <input
+          className="submit"
+          type="submit"
+          value={isSubmitting ? "Submitting..." : "Login"}
+          disabled={isSubmitting}
+        />
       </form>
-      {errorMessage ? <p>{errorMessage}</p> : null}
-      {successMessage ? <p>{successMessage}</p> : null}
-    </>
+
+      {errorMessage ? <p className="message message--error">{errorMessage}</p> : null}
+      {successMessage ? <p className="message message--success">{successMessage}</p> : null}
+    </AuthPage>
   );
 }
