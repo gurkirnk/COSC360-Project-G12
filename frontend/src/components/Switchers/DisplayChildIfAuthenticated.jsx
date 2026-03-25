@@ -1,4 +1,4 @@
-import {AuthenticatedSwitcher} from "./AuthenticatedSwitcher";
+import AuthenticatedSwitcher from "./AuthenticatedSwitcher";
 
 export default function DisplayChildIfAuthenticated({ children }) {
   return (

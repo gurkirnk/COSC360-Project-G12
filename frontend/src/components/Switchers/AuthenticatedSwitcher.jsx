@@ -1,6 +1,6 @@
 import { useAuth } from "../../contexts/useAuth";
 
-export default function RoleSwitcher({
+export default function AuthenticatedSwitcher({
   authenticatedComponent = <></>,
   unauthenticatedComponent = <></>,
 }) {

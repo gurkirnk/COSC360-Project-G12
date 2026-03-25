@@ -1,4 +1,4 @@
-import RoleSwitcher from '../../Switchers/RoleSwitcher';
+import {RoleSwitcher} from '../../Switchers';
 import './HeaderNav.css';
 import { NavLink } from 'react-router-dom';
 
