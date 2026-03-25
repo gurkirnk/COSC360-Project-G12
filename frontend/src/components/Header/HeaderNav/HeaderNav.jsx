@@ -1,4 +1,4 @@
-import RegistrationSwitcher from '../../RegistrationSwitcher/RegistrationSwitcher';
+import RoleSwitcher from '../../Switchers/RoleSwitcher';
 import './HeaderNav.css';
 import { NavLink } from 'react-router-dom';
 
@@ -6,8 +6,8 @@ export default function HeaderNav() {
 
   return (
     <nav className="main-navigation" aria-label="main navigation">
-      <RegistrationSwitcher
-        registeredComponent={
+      <RoleSwitcher
+        userComponent={
           <ul className="main-navigation-list">
             <li className="main-navigation-item"><NavLink to="/">Home</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/list">Make A Listing</NavLink></li>
@@ -15,7 +15,7 @@ export default function HeaderNav() {
             <li className="main-navigation-item"><NavLink to="/account">Account</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/logout">Logout</NavLink></li>
           </ul>}
-        unregisteredComponent={
+        guestComponent={
 
           <ul className="main-navigation-list">
             <li className="main-navigation-item"><NavLink to="/browse">Browse</NavLink></li>

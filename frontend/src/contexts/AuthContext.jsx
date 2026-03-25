@@ -60,6 +60,7 @@ export function AuthProvider({ children }) {
   const value = {
     ...authState,
     isAuthenticated: Boolean(authState.token),
+    isAdmin: Boolean(authState.user?.role === "admin"),
     login,
     logout,
     register,
