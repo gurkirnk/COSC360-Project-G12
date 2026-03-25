@@ -1,6 +1,7 @@
-import { createUser, findUserByName, findUserByEmail } from "./signupRepository.js";
+import { createUser, findUserByName, findUserByEmail } from "../authAndUserRepository.js";
 import { signToken } from "../tokens/jwt.js";
 import { USER } from "../roles.js";
+import bcrypt from "bcrypt";
 
 const MIN_PASSWORD_LENGTH = 6;
 const MIN_NAME_LENGTH = 3;
@@ -34,10 +35,12 @@ export async function signup({ name, email, password }) {
     throw Object.assign(new Error("User already exists with this name."), { statusCode: 409 });
   }
 
+  const hashedPassword = await bcrypt.hash(normalizedPassword, 10);
+
   const user = await createUser({
     name: normalizedName,
     email: normalizedEmail,
-    password: normalizedPassword,
+    password: hashedPassword,
     role: USER,
   });
 
