@@ -1,6 +1,7 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
+import NotFoundPage from './pages/NotFoundPage'
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
 import LoginPage from './pages/LoginPage'
@@ -19,6 +20,7 @@ function App() {
         <Route path="logout" element={<LogoutPage />} />
         <Route path="list" element={<CreateListingPage/>} />
         <Route path="account" element={<h1>Account not implemented</h1>} />
+        <Route path="*" element={<NotFoundPage/>} />
       </Route>
     </Routes>
   )
