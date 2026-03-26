@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { createListing } from "../lib/api/features/list";
+import { useAuth } from "../contexts/useAuth";
 //TODO: This is literally just the registration page w/ bad imports, make it a create listing page.
 //TODO: Handle User IDs (pass in identifier for user who is creating listing, requires log-in session/functionality)
 export default function CreateListingPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const {user, isAuthenticated} = useAuth();
+  if(!isAuthenticated){
+      return <h1>Please Sign in to create listings</h1>
+    }
 
   async function handleRegisterSubmit(event) {
     event.preventDefault();
@@ -15,13 +20,14 @@ export default function CreateListingPage() {
     const genre = formData.get("genre")?.toString().trim() ?? "";
     const format = formData.get("format")?.toString() ?? "";
     const description = formData.get("description")?.toString() ?? "";
+    const userId = user.id;
 
     setErrorMessage("");
     setSuccessMessage("");
     setIsSubmitting(true);
 
     try {
-      await createListing({ title, genre, format, description });
+      await createListing({ title, genre, format, description, userId });
       setSuccessMessage("Listing successful.");
     } catch (error) {
       setErrorMessage(error.message);

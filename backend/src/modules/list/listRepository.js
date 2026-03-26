@@ -1,6 +1,6 @@
 import { getDb } from "../../db/mongoClient.js";
 
-export async function createListing({ title, genre, format, description }) {
+export async function createListing({ title, genre, format, description, userId }) {
   const db = await getDb();
   const document = {
     title,
@@ -8,6 +8,7 @@ export async function createListing({ title, genre, format, description }) {
     format,
     description,
     createdAt: new Date(),
+    userId,
   };
 
   const result = await db.collection("listings").insertOne(document);
