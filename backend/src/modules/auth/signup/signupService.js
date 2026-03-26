@@ -1,16 +1,19 @@
 import { createUser, findUserByName, findUserByEmail } from "../authAndUserRepository.js";
 import { signToken } from "../tokens/jwt.js";
 import { USER } from "../roles.js";
+import { saveImageAndReturnUrl } from "../../images/imageService.js";
+import { normalizePicture } from "../../../utils/images.js";
 import bcrypt from "bcrypt";
 
 const MIN_PASSWORD_LENGTH = 6;
 const MIN_NAME_LENGTH = 3;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export async function signup({ name, email, password }) {
-  const normalizedName = typeof name === "string" ? name.trim() : "";
+export async function signup({ name, email, password, profilePicture }) {
+  const normalizedName = typeof name === "string" ? name.trim().toLowerCase() : "";
   const normalizedEmail = typeof email === "string" ? email.trim().toLowerCase() : "";
   const normalizedPassword = typeof password === "string" ? password : "";
+  const normalizedProfilePicture = normalizePicture(profilePicture);
 
   if (!normalizedName || !normalizedEmail || !normalizedPassword) {
     throw Object.assign(new Error("Name, email, and password are required."), { statusCode: 400 });
@@ -42,6 +45,7 @@ export async function signup({ name, email, password }) {
     email: normalizedEmail,
     password: hashedPassword,
     role: USER,
+    profilePictureLink: normalizedProfilePicture ? await saveImageAndReturnUrl(normalizedProfilePicture) : null,
   });
 
   const token = signToken({ sub: user.id, name: user.name, role: user.role }, { expiresIn: "7d" });

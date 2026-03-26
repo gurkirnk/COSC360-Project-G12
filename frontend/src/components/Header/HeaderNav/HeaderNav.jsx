@@ -12,7 +12,7 @@ export default function HeaderNav() {
             <li className="main-navigation-item"><NavLink to="/">Home</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/list">Make A Listing</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/browse">Browse</NavLink></li>
-            <li className="main-navigation-item"><NavLink to="/account">Account</NavLink></li>
+            <li className="main-navigation-item"><NavLink to="/profile">Profile</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/logout">Logout</NavLink></li>
           </ul>}
         unauthenticatedComponent={

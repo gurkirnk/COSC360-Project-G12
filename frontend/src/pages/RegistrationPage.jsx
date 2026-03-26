@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AuthPage from "../components/AuthPage";
 import { useAuth } from "../contexts/useAuth";
+import { createImageUploadPayload } from "../lib/images";
 
 export default function RegistrationPage() {
   const { register } = useAuth();
@@ -15,14 +16,16 @@ export default function RegistrationPage() {
     const name = formData.get("name")?.toString().trim() ?? "";
     const email = formData.get("email")?.toString().trim() ?? "";
     const password = formData.get("password")?.toString() ?? "";
-    // TODO: handle the profile picture in some way
+    const profilePictureFile = formData.get("profilePicture");
 
     setErrorMessage("");
     setSuccessMessage("");
     setIsSubmitting(true);
 
     try {
-      const result = await register({ name, email, password });
+      const profilePicture = await createImageUploadPayload(profilePictureFile);
+
+      const result = await register({ name, email, password, profilePicture });
       setSuccessMessage(`Registration successful. Welcome, ${result.user?.name ?? name}.`);
     } catch (error) {
       setErrorMessage(error.message);
