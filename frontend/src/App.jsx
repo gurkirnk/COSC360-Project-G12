@@ -8,7 +8,7 @@ import LoginPage from './pages/LoginPage'
 import RegistrationPage from './pages/RegistrationPage'
 import CreateListingPage from './pages/CreateListingPage'
 import LogoutPage from './pages/LogoutPage'
-import AccountPage from './pages/AccountPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="register" element={<RegistrationPage />} />
         <Route path="logout" element={<LogoutPage />} />
         <Route path="list" element={<CreateListingPage/>} />
-        <Route path="account" element={<AccountPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Route>
     </Routes>

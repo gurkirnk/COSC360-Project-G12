@@ -1,10 +1,10 @@
-.account-page {
+.profile-page {
   display: flex;
   justify-content: center;
   padding: 3rem 1.5rem 4rem;
 }
 
-.account-card {
+.profile-card {
   width: min(100%, 42rem);
   border: 1px solid #d7d7d7;
   border-radius: 10px;
@@ -13,18 +13,18 @@
   box-sizing: border-box;
 }
 
-.account-card h1 {
+.profile-card h1 {
   margin: 0 0 1.5rem;
   color: #333333;
 }
 
-.account-profile-picture {
+.profile-profile-picture {
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
 }
 
-.account-profile-picture img {
+.profile-profile-picture img {
   width: 9rem;
   height: 9rem;
   border: 1px solid #d7d7d7;
@@ -33,33 +33,29 @@
   background: #f5f5f5;
 }
 
-.account-details {
+.profile-details {
   margin: 0;
   display: grid;
   gap: 1rem;
 }
 
-.account-detail-row {
+.profile-detail-row {
   display: grid;
   gap: 0.35rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #ececec;
 }
 
-.account-detail-row:last-child {
+.profile-detail-row:last-child {
   padding-bottom: 0;
   border-bottom: none;
 }
 
-.account-detail-row dt {
+.profile-detail-row dt {
   font-weight: 700;
   color: #333333;
 }
 
-.account-detail-row dd {
+.profile-detail-row dd {
   margin: 0;
-  color: #4a4a4a;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
 }
-
