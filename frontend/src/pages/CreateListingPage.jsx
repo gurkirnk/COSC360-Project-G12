@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createListing } from "../lib/api/features/list";
 import { useAuth } from "../contexts/useAuth";
-//TODO: This is literally just the registration page w/ bad imports, make it a create listing page.
-//TODO: Handle User IDs (pass in identifier for user who is creating listing, requires log-in session/functionality)
+
 export default function CreateListingPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
