@@ -1,0 +1,19 @@
+.BigTitle {
+    margin-top: 1.5em;
+    margin-bottom: 0.2em;
+    text-align: center;
+    font-size: 5em;
+}
+.DaSubtitle {
+    margin: 0 0 0.3em;
+    text-align: center;
+    color: #8b8b8b;
+    font-weight: 100;
+    font-size: 2em;
+}
+.SearchForm {
+    display: flex;
+    justify-content: center;
+    margin-top: 0em;
+    padding-bottom: 3em;
+}
