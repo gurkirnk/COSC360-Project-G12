@@ -1,5 +1,8 @@
+import { useAuth } from "../../contexts/useAuth";
+
 //For creating a visually pleasing list, takes the results of a browse query.
 export default function Listings({ listings }) {
+    const {user, isAuthenticated} = useAuth();
     return (
         <div>
             {listings?.results.map((item) => (
@@ -11,6 +14,7 @@ export default function Listings({ listings }) {
                     <small>
                         Added: {new Date(item.createdAt).toLocaleDateString()}
                     </small>
+                    <p>{(isAuthenticated && item.userId == user?._id)?<a href="/listEdit">Edit Listing</a>:<></> }</p>
                 </div>
             ))}
             {

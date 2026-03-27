@@ -19,5 +19,6 @@ export async function createListing({ title, genre, format, description, userId 
     format: document.format,
     description: document.description,
     createdAt: document.createdAt,
+    userId: document.userId
   };
 }

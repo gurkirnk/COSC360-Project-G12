@@ -19,3 +19,21 @@ export async function getListings({ search, genre }) {
 
   return results;
 }
+
+export async function getListingsById(id) {
+  const db = await getDb();
+
+  const query = {};
+
+  if (search) {
+    query.userId = id;
+  }
+
+  const results = await db
+    .collection("listings")
+    .find(query)
+    .toArray();
+
+  return results;
+}
+

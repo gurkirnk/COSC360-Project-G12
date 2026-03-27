@@ -19,7 +19,7 @@ export default function CreateListingPage() {
     const genre = formData.get("genre")?.toString().trim() ?? "";
     const format = formData.get("format")?.toString() ?? "";
     const description = formData.get("description")?.toString() ?? "";
-    const userId = user.id;
+    const userId = user._id;
 
     setErrorMessage("");
     setSuccessMessage("");
