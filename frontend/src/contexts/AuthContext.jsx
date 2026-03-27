@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "./auth-context";
 import { loginUser, logout as logoutRequest, registerUser } from "../lib/api/features/auth";
-import fancySessionStorage, { getItem, removeItem, setItem } from "../lib/storage/fancySessionStorage";
-import { AUTH_TOKEN, AUTH_USER } from "../lib/storage/sessionStorageVariables";
+import fancyLocalStorage, { getItem, removeItem, setItem } from "../lib/storage/fancyLocalStorage";
+import { AUTH_TOKEN, AUTH_USER } from "../lib/storage/localStorageVariables";
 
-function getInitialAuthState() {
+function getStoredAuthState() {
   return {
     token: getItem(AUTH_TOKEN, null),
     user: getItem(AUTH_USER, null),
@@ -12,7 +12,21 @@ function getInitialAuthState() {
 }
 
 export function AuthProvider({ children }) {
-  const [authState, setAuthState] = useState(getInitialAuthState);
+  const [authState, setAuthState] = useState(getStoredAuthState);
+
+  //keep other open tabs in sync.
+  useEffect(() => {
+    function handleStorage(event) {
+      if (event.key !== null && event.key !== AUTH_TOKEN && event.key !== AUTH_USER) {
+        return;
+      }
+
+      setAuthState(getStoredAuthState());
+    }
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   function persistAuth(nextAuthState) {
     if (nextAuthState.token) {
@@ -52,7 +66,7 @@ export function AuthProvider({ children }) {
       console.warn("Logout request failed, but clearing local auth state anyway.");
       return null;
     } finally {
-      fancySessionStorage.clear();
+      fancyLocalStorage.clear();
       persistAuth({ token: null, user: null });
     }
   }

@@ -1,12 +1,12 @@
 /**
- * Central registry of allowed session storage keys, to make remembering these strings easier.
+ * Central registry of allowed local storage keys, to make remembering these strings easier.
  *
  * Export named constants for direct import, and a default
  * object that contains all keys for programmatic checks.
  *
  * Example:
- * import { USERNAME } from './sessionStorageVariables'
- * import storage from './sessionStorageVariables'
+ * import { USERNAME } from './localStorageVariables'
+ * import storage from './localStorageVariables'
  * console.log(storage.USERNAME === USERNAME)
  */
 

@@ -1,5 +1,5 @@
-import { getItem } from "../storage/fancySessionStorage.js";
-import { AUTH_TOKEN } from "../storage/sessionStorageVariables.js";
+import { getItem } from "../storage/fancyLocalStorage.js";
+import { AUTH_TOKEN } from "../storage/localStorageVariables.js";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
 
@@ -10,7 +10,7 @@ function constructUrl(path) {
 export async function apiClient(url, options = {}) {
   const { method = "GET", body } = options;
 
-  // Include stored bearer token from session storage when present.
+  // Include the persisted bearer token when present.
   const token = getItem(AUTH_TOKEN, null);
   const headers = {
     "Content-Type": "application/json",
