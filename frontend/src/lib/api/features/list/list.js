@@ -1,6 +1,6 @@
 import { apiClient } from "../../api-client";
 
-export async function createListing({ title, genre, format, description, userId }) {
+export async function createListing({ title, genre, format, description }) {
   const response = await apiClient(`/api/list`, {
     method: "POST",
     body: {
@@ -8,7 +8,6 @@ export async function createListing({ title, genre, format, description, userId 
       genre,
       format,
       description,
-      userId
     },
   });
 

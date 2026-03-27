@@ -19,14 +19,12 @@ export default function CreateListingPage() {
     const genre = formData.get("genre")?.toString().trim() ?? "";
     const format = formData.get("format")?.toString() ?? "";
     const description = formData.get("description")?.toString() ?? "";
-    const userId = user._id;
-
     setErrorMessage("");
     setSuccessMessage("");
     setIsSubmitting(true);
 
     try {
-      await createListing({ title, genre, format, description, userId });
+      await createListing({ title, genre, format, description });
       setSuccessMessage("Listing successful.");
     } catch (error) {
       setErrorMessage(error.message);
