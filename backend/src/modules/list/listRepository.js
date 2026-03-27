@@ -47,3 +47,10 @@ export async function deleteListing(listingId) {
   const result = await db.collection("listings").deleteOne(filter);
   return result;
 }
+
+export async function findListingById(listingId) {
+  const db = await getDb();
+  const filter = { _id: new ObjectId(listingId) };
+  const result = await db.collection("listings").findOne(filter);
+  return result;
+}
