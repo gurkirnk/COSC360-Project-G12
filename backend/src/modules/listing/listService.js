@@ -3,6 +3,9 @@ import {
   editListing,
   deleteListing,
   findListingById,
+  getListings,
+  getListingsByUserId,
+  getListingsById,
 } from "./listRepository.js";
 
 //TODO: Presumably format, genre, will be limited to certain values at some point, checking for that should go here.
@@ -34,6 +37,29 @@ export async function removeListing(listingId, userId) {
   if (listing.userId !== userId) throw Object.assign(new Error("Forbidden"), { statusCode: 403 });
 
   const results = await deleteListing(listingId, userId);
+
+  return {
+    results: results,
+  };
+}
+
+export async function retrieveListings({search, genre}) {
+  const results = await getListings({search, genre});
+
+  return {
+    results: results,
+  };
+}
+
+export async function retrieveListingsByUserId(id) {
+  const results = await getListingsByUserId(id);
+
+  return {
+    results: results,
+  };
+}
+export async function retrieveListingsById(id) {
+  const results = await getListingsById(id);
 
   return {
     results: results,

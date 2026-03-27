@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../components/SearchBar';
-import { browseListings } from '../lib/api/features/browse';
+import { browseListings } from '../lib/api/features/list';
 import { useSearchParams } from "react-router-dom";
 import Listings from '../components/Listings';
 

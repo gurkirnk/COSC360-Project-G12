@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { editListing } from "../lib/api/features/list";
+import { editListing, browseListingsById } from "../lib/api/features/list";
 import { useAuth } from "../contexts/useAuth";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { browseListingsById } from "../lib/api/features/browse";
 
 export default function ListEditPage() {
     const [errorMessage, setErrorMessage] = useState("");
