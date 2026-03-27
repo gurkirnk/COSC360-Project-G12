@@ -32,7 +32,7 @@ export default function ListEditPage() {
     if (!isAuthenticated) {
         return <h1>Please Sign in to edit listings</h1>
     }
-    if (listing.results[0].userId != user._id) {
+    if (listing.results[0].userId != user.id) {
         return <h1>This listing was created by another user. Please choose a listing belonging to you to edit</h1>
     }
     const handleChange = (e) => {
