@@ -10,6 +10,7 @@ import CreateListingPage from './pages/CreateListingPage'
 import LogoutPage from './pages/LogoutPage'
 import ProfilePage from './pages/ProfilePage'
 import ListEditPage from './pages/ListEditPage'
+import ListDeletePage from './pages/ListDeletePage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage/>} />
         <Route path="listEdit" element={<ListEditPage/>} />
+        <Route path="listDelete" element={<ListDeletePage/>} />
       </Route>
     </Routes>
   )

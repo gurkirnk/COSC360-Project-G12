@@ -29,3 +29,14 @@ export async function editListing({ title, genre, format, description, listingId
 
   return response.data;
 }
+
+export async function deleteListing(listingId){
+  const response = await apiClient(`/api/list`, {
+    method: "DELETE",
+    body: {
+      listingId
+    },
+  });
+
+  return response.data;
+}

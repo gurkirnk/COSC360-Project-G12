@@ -1,1 +1,1 @@
-export { createListing, editListing } from "./list";
+export { createListing, editListing, deleteListing } from "./list";
