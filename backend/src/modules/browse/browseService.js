@@ -1,6 +1,7 @@
 import {
   getListings,
-  getListingsById,
+  getListingsByUserId,
+  getListingsById
 } from "./browseRepository.js";
 
 export async function retrieveListings({search, genre}) {
@@ -11,6 +12,13 @@ export async function retrieveListings({search, genre}) {
   };
 }
 
+export async function retrieveListingsByUserId(id) {
+  const results = await getListingsByUserId(id);
+
+  return {
+    results: results,
+  };
+}
 export async function retrieveListingsById(id) {
   const results = await getListingsById(id);
 

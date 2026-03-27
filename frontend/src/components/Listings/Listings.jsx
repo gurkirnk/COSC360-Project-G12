@@ -14,7 +14,7 @@ export default function Listings({ listings }) {
                     <small>
                         Added: {new Date(item.createdAt).toLocaleDateString()}
                     </small>
-                    <p>{(isAuthenticated && item.userId == user?._id)?<a href="/listEdit">Edit Listing</a>:<></> }</p>
+                    <p>{(isAuthenticated && item.userId == user?._id)?<><a href={"/listEdit?id="+item._id}>Edit Listing</a> |  <a href="/listDelete">Delete Listing</a></>:<></> }</p>
                 </div>
             ))}
             {

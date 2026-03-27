@@ -38,7 +38,7 @@ export default function CreateListingPage() {
   //TODO: Change input types
   return (
     <>
-      <h1>Registration</h1>
+      <h1>Create Listing</h1>
       <form onSubmit={handleRegisterSubmit}>
         <label htmlFor="title">
           Title:
