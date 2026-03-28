@@ -100,8 +100,7 @@ export async function getListingsById(id) {
 
   const results = await db
     .collection("listings")
-    .find(query)
-    .toArray();
+    .findOne(query);
 
   return results;
 }

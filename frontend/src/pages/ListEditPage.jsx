@@ -9,7 +9,7 @@ export default function ListEditPage() {
     const [successMessage, setSuccessMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { user, isAuthenticated } = useAuth();
-    const [listing, setListing] = useState({results:[{ title: "", genre: "", format: "", description: "" }]});
+    const [listing, setListing] = useState({ title: "", genre: "", format: "", description: "" });
     const [searchParams, setSearchParams] = useSearchParams(window.location.search);
     const listingId = searchParams.get("id") || "";
 
@@ -17,7 +17,7 @@ export default function ListEditPage() {
         async function fetchListings() {
             try {
                 const response = await browseListingsById(listingId);
-                setListing(response.data || response);
+                setListing(response.results || response);
             } catch (error) {
                 console.error("Failed to load listing:", error);
             }
@@ -25,21 +25,18 @@ export default function ListEditPage() {
 
         fetchListings();
     }, [listingId]);
-    if(!listing.results[0].userId){
+    if(!listing.userId){
         return <h1>Loading...</h1>
     } 
     if (!isAuthenticated) {
         return <h1>Please Sign in to edit listings</h1>
     }
-    if (listing.results[0].userId != user.id) {
+    if (listing.userId != user.id) {
         return <h1>This listing was created by another user. Please choose a listing belonging to you to edit</h1>
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setListing(prev => ({
-            ...prev,
-            results: [{ ...prev.results[0], [name]: value }]
-        }));
+        setListing(prev => ({ ...prev, [name]: value }));
     };
 
     async function handleRegisterSubmit(event) {
@@ -72,19 +69,19 @@ export default function ListEditPage() {
             <form onSubmit={handleRegisterSubmit}>
                 <label htmlFor="title">
                     Title:
-                    <input id="title" type="text" name="title" value={listing.results[0].title} onChange={handleChange} required />
+                    <input id="title" type="text" name="title" value={listing.title} onChange={handleChange} required />
                 </label>
                 <label htmlFor="genre">
                     Genre:
-                    <input id="genre" type="text" name="genre" value={listing.results[0].genre} onChange={handleChange} required />
+                    <input id="genre" type="text" name="genre" value={listing.genre} onChange={handleChange} required />
                 </label>
                 <label htmlFor="format">
                     Format:
-                    <input id="format" type="text" name="format" value={listing.results[0].format} onChange={handleChange} required />
+                    <input id="format" type="text" name="format" value={listing.format} onChange={handleChange} required />
                 </label>
                 <label htmlFor="description">
                     Description:
-                    <input id="description" type="text" name="description" value={listing.results[0].description} onChange={handleChange} />
+                    <input id="description" type="text" name="description" value={listing.description} onChange={handleChange} />
                 </label>
                 <input type="submit" value={isSubmitting ? "Submitting..." : "Submit"} disabled={isSubmitting} />
             </form>
