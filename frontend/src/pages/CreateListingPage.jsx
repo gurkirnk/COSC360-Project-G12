@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { createListing } from "../lib/api/features/list";
-//TODO: This is literally just the registration page w/ bad imports, make it a create listing page.
-//TODO: Handle User IDs (pass in identifier for user who is creating listing, requires log-in session/functionality)
+import { useAuth } from "../contexts/useAuth";
+
 export default function CreateListingPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const {user, isAuthenticated} = useAuth();
+  if(!isAuthenticated){
+      return <h1>Please Sign in to create listings</h1>
+    }
 
   async function handleRegisterSubmit(event) {
     event.preventDefault();
@@ -15,7 +19,6 @@ export default function CreateListingPage() {
     const genre = formData.get("genre")?.toString().trim() ?? "";
     const format = formData.get("format")?.toString() ?? "";
     const description = formData.get("description")?.toString() ?? "";
-
     setErrorMessage("");
     setSuccessMessage("");
     setIsSubmitting(true);
@@ -30,10 +33,9 @@ export default function CreateListingPage() {
     }
   }
 
-  //TODO: Change input types
   return (
     <>
-      <h1>Registration</h1>
+      <h1>Create Listing</h1>
       <form onSubmit={handleRegisterSubmit}>
         <label htmlFor="title">
           Title:
@@ -45,7 +47,11 @@ export default function CreateListingPage() {
         </label>
         <label htmlFor="format">
           Format:
-          <input id="format" type="text" name="format" required />
+          <select id="format" name="format" required>
+              <option>Paperback</option>
+              <option>Hardcover</option>
+              <option>Mass Market Paperback</option>
+          </select>
         </label>
         <label htmlFor="description">
           Description:

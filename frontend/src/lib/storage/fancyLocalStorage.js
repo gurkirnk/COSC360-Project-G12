@@ -1,10 +1,11 @@
-import KEYS from './sessionStorageVariables.js';
+import KEYS from "./localStorageVariables.js";
 
 const registered = new Set(Object.values(KEYS));
+const storage = window.localStorage;
 
 function assertRegistered(key) {
   if (!registered.has(key)) {
-    throw new Error(`SessionStorage key "${key}" is not registered in sessionStorageVariables.`);
+    throw new Error(`Storage key "${key}" is not registered in localStorageVariables.`);
   }
 }
 
@@ -25,24 +26,24 @@ function deserialize(raw) {
 export function setItem(key, value) {
   assertRegistered(key);
   const v = serialize(value);
-  sessionStorage.setItem(key, v);
+  storage.setItem(key, v);
 }
 
 export function getItem(key, defaultValue = null) {
   assertRegistered(key);
-  const raw = sessionStorage.getItem(key);
+  const raw = storage.getItem(key);
   if (raw === null) return defaultValue;
   return deserialize(raw);
 }
 
 export function removeItem(key) {
   assertRegistered(key);
-  sessionStorage.removeItem(key);
+  storage.removeItem(key);
 }
 
 export function clear() {
-  // Only clears keys that are registered in our registry
-  Object.values(KEYS).forEach((k) => sessionStorage.removeItem(k));
+  // Only clears keys that are registered in our registry.
+  Object.values(KEYS).forEach((k) => storage.removeItem(k));
 }
 
 export default {

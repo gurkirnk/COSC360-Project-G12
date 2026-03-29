@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../components/SearchBar';
-import { browseListings } from '../lib/api/features/browse';
+import { browseListings } from '../lib/api/features/list';
 import { useSearchParams } from "react-router-dom";
+import Listings from '../components/Listings';
 
-/*TODO: Format listings/proper empty responce handling (I'll take care of this, just difficult to do when there is no way to create listings in the db)*/
 export default function BrowsePage() {
 
-  const [listings, setlistings] = useState([]);
+  const [listings, setlistings] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const search = searchParams.get("search") || "";
@@ -30,9 +30,7 @@ export default function BrowsePage() {
     <>
       <h1>Browse</h1>
       <SearchBar SearchBarClicked={(newSearch) => setSearchParams({search: newSearch, genre: genre})} />
-      <p>
-        {JSON.stringify(listings) === "{\"results\":[]}" ? "No Results Found" : JSON.stringify(listings)}
-      </p>
+      <Listings listings = {listings} />
     </>
   );
 }
