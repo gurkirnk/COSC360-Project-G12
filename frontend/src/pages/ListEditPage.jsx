@@ -25,9 +25,9 @@ export default function ListEditPage() {
 
         fetchListings();
     }, [listingId]);
-    if(!listing.userId){
+    if (!listing.userId) {
         return <h1>Loading...</h1>
-    } 
+    }
     if (!isAuthenticated) {
         return <h1>Please Sign in to edit listings</h1>
     }
@@ -77,7 +77,11 @@ export default function ListEditPage() {
                 </label>
                 <label htmlFor="format">
                     Format:
-                    <input id="format" type="text" name="format" value={listing.format} onChange={handleChange} required />
+                    <select id="format" name="format" onChange={handleChange} required>
+                        <option>Paperback</option>
+                        <option>Hardcover</option>
+                        <option>Mass Market Paperback</option>
+                    </select>
                 </label>
                 <label htmlFor="description">
                     Description:

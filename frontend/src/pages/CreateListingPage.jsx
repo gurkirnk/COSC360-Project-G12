@@ -33,7 +33,6 @@ export default function CreateListingPage() {
     }
   }
 
-  //TODO: Change input types
   return (
     <>
       <h1>Create Listing</h1>
@@ -48,7 +47,11 @@ export default function CreateListingPage() {
         </label>
         <label htmlFor="format">
           Format:
-          <input id="format" type="text" name="format" required />
+          <select id="format" name="format" required>
+              <option>Paperback</option>
+              <option>Hardcover</option>
+              <option>Mass Market Paperback</option>
+          </select>
         </label>
         <label htmlFor="description">
           Description:
