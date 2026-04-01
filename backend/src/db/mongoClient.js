@@ -19,6 +19,7 @@ export async function connectMongoose() {
   return mongoose.connection;
 }
 
+// TODO: remove once everything is migrated to mongoose
 export async function getDb() {
   if (database) {
     return database;
