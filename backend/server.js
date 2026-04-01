@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { connectMongoose } from "./src/db/mongoClient.js";
 import apiRouter from "./src/routes/index.js";
 
 const app = express();
@@ -20,6 +21,8 @@ app.use("/api", apiRouter);
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
+
+await connectMongoose();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
