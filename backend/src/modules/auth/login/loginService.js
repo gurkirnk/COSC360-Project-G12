@@ -1,4 +1,4 @@
-import {findUserByEmail} from "../authAndUserRepository.js";
+import { findUserCredentialsByEmail } from "../authAndUserRepository.js";
 import { signToken } from "../tokens/jwt.js";
 import bcrypt from "bcrypt";
 
@@ -10,7 +10,7 @@ export async function login({ email, password }) {
         throw Object.assign(new Error("Email and password are required."), { statusCode: 400 });
     }
 
-    const user = await findUserByEmail(normalizedEmail);
+    const user = await findUserCredentialsByEmail(normalizedEmail);
     if (!user) {
         throw Object.assign(new Error("Invalid email or password."), { statusCode: 401 });
     }
@@ -22,5 +22,7 @@ export async function login({ email, password }) {
 
     const token = signToken({ sub: user.id, name: user.name, role: user.role }, { expiresIn: "7d" });
 
-    return { user, token };
+    const { hashedPassword, ...publicUser } = user;
+
+    return { user: publicUser, token };
 }
