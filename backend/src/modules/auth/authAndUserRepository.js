@@ -52,3 +52,10 @@ export async function findUserById(id) {
   const user = await User.findById(id);
   return user ? user.toJSON() : null;
 }
+
+export async function removeUserById(id) {
+  await connectMongoose();
+  
+  const deletedUser = await User.findByIdAndDelete(id);
+  return deletedUser? deletedUser.toJSON() : null;
+}
