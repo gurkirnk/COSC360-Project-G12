@@ -1,4 +1,5 @@
 import { removeUserById } from "../authAndUserRepository";
+import { deleteListing } from "../../listing/listRepository";
 export async function adminRemoveUserById(id) {
 
     const results = await removeUserById(id);
@@ -6,4 +7,14 @@ export async function adminRemoveUserById(id) {
     return {
         results: results,
     };
+}
+export async function adminRemoveListing(id){
+  const listing = await findListingById(id);
+  if (!listing) throw Object.assign(new Error("Listing not found"), { statusCode: 404 });
+
+  const results = await deleteListing(id);
+
+  return {
+    results: results,
+  };
 }
