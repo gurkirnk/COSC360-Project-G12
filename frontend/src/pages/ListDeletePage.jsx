@@ -21,7 +21,7 @@ export default function ListDeletePage() {
     }
 
     if (!isAuthenticated) {
-        return <h1>Please Sign in to delete listings</h1>
+        return <NotAllowedPage details="You must be logged in to view this page." />;
     }
 
     return (

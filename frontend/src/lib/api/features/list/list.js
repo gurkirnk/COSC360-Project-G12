@@ -40,6 +40,17 @@ export async function deleteListing(listingId){
   return response.data;
 }
 
+export async function adminDeleteListing(id){
+  const response = await apiClient(`/api/auth/admin/listing`, {
+    method: "DELETE",
+    body: {
+      id
+    },
+  });
+
+  return response.data;
+}
+
 export async function browseListings({ search, genre }) {
   const params = { search, genre };
   const query = new URLSearchParams(params).toString();

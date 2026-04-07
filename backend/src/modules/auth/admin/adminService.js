@@ -1,5 +1,5 @@
 import { findUserById, removeUserById } from "../authAndUserRepository.js";
-import { deleteListing } from "../../listing/listRepository.js";
+import { deleteListing, findListingById } from "../../listing/listRepository.js";
 export async function adminRemoveUserById(id) {
 
     const results = await removeUserById(id);

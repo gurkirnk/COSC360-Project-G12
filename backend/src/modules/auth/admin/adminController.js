@@ -22,7 +22,7 @@ export async function adminRemoveUser(req, res){
 
 export async function adminDeleteListing(req,res){
   try {
-    const id = req.body;
+    const id = req.body.id;
     const result = await adminRemoveListing(id);
     return res.status(201).json({ message: "Deletion Successful", data: result });
   } catch (err) {
