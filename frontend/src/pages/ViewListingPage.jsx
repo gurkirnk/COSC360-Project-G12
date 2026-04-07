@@ -7,7 +7,7 @@ import Listings from "../components/Listings";
 
 export default function ViewListingPage() {
     const { user, isAuthenticated } = useAuth();
-    const [listing, setListing] = useState({ title: "", genre: "", format: "", description: "" });
+    const [listing, setListing] = useState({_id:"", title: "", genre: "", format: "", description: "", userId: "" });
     const [searchParams, setSearchParams] = useSearchParams(window.location.search);
     const listingId = searchParams.get("id") || "";
     const [deleteStatus, setDeleteStatus] = useState("");
@@ -30,10 +30,7 @@ export default function ViewListingPage() {
 
     return (
         <>
-            <h1>Title: {listing.title}</h1>
-            <h3>Genre: {listing.genre}</h3>
-            <h3>Format: {listing.format}</h3>
-            <p>{listing.description}</p>
+            <Listings listings={{results:[listing]}}/>
         </>
     );
 }
