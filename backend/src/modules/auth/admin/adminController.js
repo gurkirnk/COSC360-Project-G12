@@ -1,4 +1,4 @@
-import {adminRemoveUserById, adminRemoveListing, adminRetrieveUserById} from "./adminService.js"
+import {adminRemoveUserById, adminRemoveListing, adminRetrieveUserById, adminRetrieveUserByEmail, adminRetrieveUserByName} from "./adminService.js"
 export async function adminStatus(req, res){
   try {
     // req.user is set by requireAdminAuth
@@ -34,6 +34,40 @@ export async function adminGetUser(req,res){
   try {
       const id = req.query.id;
       const result = await adminRetrieveUserById(id);
+      
+      return res.status(200).json({
+        message: "Retrieved matching user",
+        data: result,
+      });
+    } catch (error) {
+      console.error("adminGetUser error:", error);
+  
+      return res.status(500).json({
+        message: "Could not retrieve user",
+      });
+    }
+}
+export async function adminGetUserByName(req,res){
+  try {
+      const name = req.query.name;
+      const result = await adminRetrieveUserByName(name);
+      
+      return res.status(200).json({
+        message: "Retrieved matching user",
+        data: result,
+      });
+    } catch (error) {
+      console.error("adminGetUser error:", error);
+  
+      return res.status(500).json({
+        message: "Could not retrieve user",
+      });
+    }
+}
+export async function adminGetUserByEmail(req,res){
+  try {
+      const email = req.query.email;
+      const result = await adminRetrieveUserByEmail(email);
       
       return res.status(200).json({
         message: "Retrieved matching user",

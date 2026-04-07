@@ -1,1 +1,1 @@
-export {getUserById, deleteUser} from "./user";
+export {getUserById, deleteUser, getUserByName, getUserByEmail} from "./user";

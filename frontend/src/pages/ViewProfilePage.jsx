@@ -2,19 +2,28 @@ import { useState } from "react";
 import { useAuth } from "../contexts/useAuth";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getUserById, deleteUser } from "../lib/api/features/user/user"
+import { getUserById, deleteUser, getUserByName, getUserByEmail } from "../lib/api/features/user/user"
 
 export default function ViewProfilePage() {
     const { user, isAuthenticated, isAdmin } = useAuth();
     const [userInfo, setUserInfo] = useState({ id: "", name: "", profilePictureLink: "" });
     const [searchParams, setSearchParams] = useSearchParams(window.location.search);
     const [deleteStatus, setDeleteStatus] = useState("");
-    const userId = searchParams.get("id") || "";
+    const search = searchParams.get("search") || "";
+    const type = searchParams.get("type") || ";"
 
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await getUserById(userId);
+                let response;
+                if (type == "id"){
+                    response = await getUserById(search);
+                }else if(type == "name"){
+                    response = await getUserByName(search);
+                }
+                else{
+                    response = await getUserByEmail(search);
+                }
                 setUserInfo(response.results || response);
             } catch (error) {
                 console.error("Failed to load User:", error);
@@ -22,11 +31,11 @@ export default function ViewProfilePage() {
         }
 
         fetchUser();
-    }, [userId]);
+    }, [search, type]);
 
     async function handleDelete() {
         try {
-            const response = await deleteUser(userId);
+            const response = await deleteUser(userInfo.id);
             setDeleteStatus("Deletion successful.");
         } catch (error) {
             setDeleteStatus("Failed to delete listing:", error);

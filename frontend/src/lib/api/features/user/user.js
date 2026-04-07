@@ -5,7 +5,29 @@ export async function getUserById(id){
   const query = new URLSearchParams(params).toString();
   // use the utility for this
 
-  const response = await apiClient(`/api/auth/admin/user?${query}`, {
+  const response = await apiClient(`/api/auth/admin/user/id?${query}`, {
+    method: "GET",
+  });
+
+  return response.data;
+}
+export async function getUserByName(name){
+  const params = { name };
+  const query = new URLSearchParams(params).toString();
+  // use the utility for this
+
+  const response = await apiClient(`/api/auth/admin/user/name?${query}`, {
+    method: "GET",
+  });
+
+  return response.data;
+}
+export async function getUserByEmail(email){
+  const params = { email };
+  const query = new URLSearchParams(params).toString();
+  // use the utility for this
+
+  const response = await apiClient(`/api/auth/admin/user/email?${query}`, {
     method: "GET",
   });
 
