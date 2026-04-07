@@ -11,6 +11,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [userIdError, setUserIdError] = useState("");
   const [listingIdError, setListingIdError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleSearch = (searchString) => {
     navigate(`/browse?search=${encodeURIComponent(searchString)}`);
@@ -19,7 +20,9 @@ export default function HomePage() {
     navigate(`/user?type=name&search=${encodeURIComponent(searchString)}`);
   };
   const handleEmailSearch = (searchString) => {
-    navigate(`/user?type=email&search=${encodeURIComponent(searchString)}`);
+    let emailReg = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if(emailReg.test(searchString)) navigate(`/user?type=email&search=${encodeURIComponent(searchString)}`);
+    else setEmailError("Use a valid Email");
   };
 
   const handleUserDelete = (id) => {
@@ -77,6 +80,7 @@ export default function HomePage() {
         <form className="SearchForm">
           <label for="listingName">Search Users By Email</label>
           <SearchBar id="listingName" SearchBarClicked={handleEmailSearch} />
+          <p>{emailError}</p>
         </form>
       </>}
     />
