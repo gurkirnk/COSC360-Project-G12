@@ -11,6 +11,7 @@ import LogoutPage from './pages/LogoutPage'
 import ProfilePage from './pages/ProfilePage'
 import ListEditPage from './pages/ListEditPage'
 import ListDeletePage from './pages/ListDeletePage'
+import AdminUserDeletePage from './pages/AdminUserDeletePage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="*" element={<NotFoundPage/>} />
         <Route path="listEdit" element={<ListEditPage/>} />
         <Route path="listDelete" element={<ListDeletePage/>} />
+        <Route path ="/admin/user" element={<AdminUserDeletePage/>} />
       </Route>
     </Routes>
   )
