@@ -11,7 +11,7 @@ import LogoutPage from './pages/LogoutPage'
 import ProfilePage from './pages/ProfilePage'
 import ListEditPage from './pages/ListEditPage'
 import ListDeletePage from './pages/ListDeletePage'
-import AdminUserDeletePage from './pages/AdminUserDeletePage'
+import ViewProfilePage from './pages/ViewProfilePage'
 import AdminListDeletePage from './pages/AdminListDeletePage'
 import ViewListingPage from './pages/ViewListingPage'
 
@@ -29,8 +29,8 @@ function App() {
         <Route path="*" element={<NotFoundPage/>} />
         <Route path="listEdit" element={<ListEditPage/>} />
         <Route path="listDelete" element={<ListDeletePage/>} />
-        <Route path ="/admin/user" element={<AdminUserDeletePage/>} />
-        <Route path ="/admin/listDelete" element = {<AdminListDeletePage/>} />
+        <Route path ="/user" element={<ViewProfilePage/>} />
+        <Route path ="/listDelete" element = {<AdminListDeletePage/>} />
         <Route path ="/listView" element={<ViewListingPage/>} />
       </Route>
     </Routes>

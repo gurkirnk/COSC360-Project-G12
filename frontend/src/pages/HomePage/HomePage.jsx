@@ -14,7 +14,7 @@ export default function HomePage() {
   };
 
   const handleUserDelete = (id) => {
-    navigate(`/admin/user?id=${encodeURIComponent(id)}`);
+    navigate(`/user?id=${encodeURIComponent(id)}`);
   }
 
   const handleListingDelete = (id) => {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getUserById, deleteUser } from "../lib/api/features/user/user"
 
-export default function AdminUserDeletePage() {
+export default function ViewProfilePage() {
     const { user, isAuthenticated, isAdmin } = useAuth();
     const [userInfo, setUserInfo] = useState({ id: "", name: "", profilePictureLink: "" });
     const [searchParams, setSearchParams] = useSearchParams(window.location.search);
