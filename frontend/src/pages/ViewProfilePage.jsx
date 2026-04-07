@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/useAuth";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getUserById, deleteUser, getUserByName, getUserByEmail } from "../lib/api/features/user/user"
+import ErrorPage from "./ErrorPage";
 
 export default function ViewProfilePage() {
     const { user, isAuthenticated, isAdmin } = useAuth();
@@ -42,8 +43,7 @@ export default function ViewProfilePage() {
         }
     }
 
-    //TODO: Nicer handling for failed searches
-    if (!userInfo.id) {
+    if (userInfo == { id: "", name: "", profilePictureLink: "" }) { //if userInfo is still the default, then we are still fetching
         return <h1>Loading...</h1>
     }
     if (!isAuthenticated) {
@@ -51,6 +51,9 @@ export default function ViewProfilePage() {
     }
     if (!isAdmin) {
         return <NotAllowedPage details="You must be an admin to access this page." />;
+    }
+    if(!userInfo.id){//if there is no userInfo.id, then fetching is complete (no longer default), but we failed to find a user
+        return <ErrorPage details="Could not find user."/>
     }
 
     return (
