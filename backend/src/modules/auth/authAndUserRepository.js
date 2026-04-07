@@ -70,7 +70,7 @@ export async function seedAdmin() {
       const hashedPassword = await bcrypt.hash(process.env.ADMIN_PWD, 10);
       await User.create({
         name: 'admin',
-        email: 'admin@admin.com',
+        email: process.env.ADMIN_EMAIL,
         hashedPassword: hashedPassword,
         role: 'admin'
       });
