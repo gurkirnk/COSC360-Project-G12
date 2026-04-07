@@ -18,7 +18,7 @@ export default function HomePage() {
   }
 
   const handleListingDelete = (id) => {
-    navigate(`/admin/listing?id=${encodeURIComponent(id)}`);
+    navigate(`/listView?id=${encodeURIComponent(id)}`);
   }
 
   return (
