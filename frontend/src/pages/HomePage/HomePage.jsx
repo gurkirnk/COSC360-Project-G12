@@ -60,25 +60,25 @@ export default function HomePage() {
       adminComponent={<>
         <h1 className="BigTitle">Welcome, Admin</h1>
         <form className="SearchForm">
-          <label for="listingName">Search Listings By Name</label>
+          <label htmlFor="listingName">Search Listings By Name</label>
           <SearchBar id="listingName" SearchBarClicked={handleSearch} />
         </form>
         <form className="SearchForm">
-          <label for="userId">Find User By Id</label>
+          <label htmlFor="userId">Find User By Id</label>
           <SearchBar id="userId" SearchBarClicked={handleUserDelete} />
           <p>{userIdError}</p>
         </form>
         <form className="SearchForm">
-          <label for="listingId">Find Listing By Id</label>
+          <label htmlFor="listingId">Find Listing By Id</label>
           <SearchBar if="listingId" SearchBarClicked={handleListingDelete} />
           <p>{listingIdError}</p>
         </form>
         <form className="SearchForm">
-          <label for="listingName">Search Users By Name</label>
+          <label htmlFor="listingName">Search Users By Name</label>
           <SearchBar id="listingName" SearchBarClicked={handleNameSearch} />
         </form>
         <form className="SearchForm">
-          <label for="listingName">Search Users By Email</label>
+          <label htmlFor="listingName">Search Users By Email</label>
           <SearchBar id="listingName" SearchBarClicked={handleEmailSearch} />
           <p>{emailError}</p>
         </form>
