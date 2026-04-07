@@ -8,6 +8,16 @@ export async function getUserById(id){
   const response = await apiClient(`/api/auth/admin/user?${query}`, {
     method: "GET",
   });
-  
+
+  return response.data;
+}
+export async function deleteUser(id){
+ const response = await apiClient(`/api/auth/admin/user`, {
+    method: "DELETE",
+    body: {
+      id
+    },
+  });
+
   return response.data;
 }

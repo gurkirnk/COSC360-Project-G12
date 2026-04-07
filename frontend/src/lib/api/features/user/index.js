@@ -1,1 +1,1 @@
-export {getUserById} from "./user";
+export {getUserById, deleteUser} from "./user";

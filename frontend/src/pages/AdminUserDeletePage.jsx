@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useAuth } from "../contexts/useAuth";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getUserById } from "../lib/api/features/user/user"
+import { getUserById, deleteUser } from "../lib/api/features/user/user"
 
 export default function AdminUserDeletePage() {
     const { user, isAuthenticated, isAdmin } = useAuth();
-    const [userInfo, setUserInfo] = useState({ id: "", name: "", profilePictureLink: ""});
+    const [userInfo, setUserInfo] = useState({ id: "", name: "", profilePictureLink: "" });
     const [searchParams, setSearchParams] = useSearchParams(window.location.search);
+    const [deleteStatus, setDeleteStatus] = useState("");
     const userId = searchParams.get("id") || "";
 
     useEffect(() => {
@@ -22,6 +23,15 @@ export default function AdminUserDeletePage() {
 
         fetchUser();
     }, [userId]);
+
+    async function handleDelete() {
+        try {
+            const response = await deleteUser(userId);
+            setDeleteStatus("Deletion successful.");
+        } catch (error) {
+            setDeleteStatus("Failed to delete listing:", error);
+        }
+    }
 
     if (!userInfo.id) {
         return <h1>Loading...</h1>
@@ -52,6 +62,10 @@ export default function AdminUserDeletePage() {
                         </div>
                     ))}
                 </dl>
+
+                <label for="delete">Delete User? This Cannot Be undone</label>
+                <button onClick={handleDelete}>Delete</button>
+                <p>{deleteStatus}</p>
             </div>
         </section>
     );
