@@ -3,22 +3,33 @@ import AddOne from "../../components/AddOne";
 import SearchBar from "../../components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import RoleSwitcher from "../../components/Switchers/RoleSwitcher";
+import { useState } from "react";
 
 
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [userIdError, setUserIdError] = useState("");
+  const [listingIdError, setListingIdError] = useState("");
 
   const handleSearch = (searchString) => {
     navigate(`/browse?search=${encodeURIComponent(searchString)}`);
   };
 
   const handleUserDelete = (id) => {
-    navigate(`/user?id=${encodeURIComponent(id)}`);
+    if(id.length == 24){
+      navigate(`/user?id=${encodeURIComponent(id)}`);
+    }else{
+      setUserIdError("Ids must be 24 characters long");
+    }
   }
 
   const handleListingDelete = (id) => {
-    navigate(`/listView?id=${encodeURIComponent(id)}`);
+    if(id.length == 24){
+      navigate(`/listView?id=${encodeURIComponent(id)}`);
+    }else{
+      setListingIdError("Ids must be 24 characters long");
+    }
   }
 
   return (
@@ -36,7 +47,7 @@ export default function HomePage() {
         <form className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
         </form>
-      </>} //TODO: INput validation for userIds/Listing ids (exactly 24 non-special characters)
+      </>}
       adminComponent={<>
         <h1 className="BigTitle">Welcome, Admin</h1>
         <form className="SearchForm">
@@ -46,10 +57,12 @@ export default function HomePage() {
         <form className="DeleteUserForm">
           <label for="userId">Find User By Id</label>
           <SearchBar id="userId" SearchBarClicked={handleUserDelete} />
+          <p>{userIdError}</p>
         </form>
         <form className="DeleteListingForm">
           <label for="listingId">Find Listing By Id</label>
           <SearchBar if="listingId" SearchBarClicked={handleListingDelete} />
+          <p>{listingIdError}</p>
         </form>
       </>}
     />
