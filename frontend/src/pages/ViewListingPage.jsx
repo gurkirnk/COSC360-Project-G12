@@ -16,7 +16,7 @@ export default function ViewListingPage() {
         async function fetchListings() {
             try {
                 const response = await browseListingsById(listingId);
-                setListing(response.results || response);
+                setListing(response.results);
             } catch (error) {
                 console.error("Failed to load listing:", error);
             }
@@ -24,13 +24,10 @@ export default function ViewListingPage() {
 
         fetchListings();
     }, [listingId]);
-    async function handleDelete(event) {
-        
-    }
 
     return (
         <>
-            <Listings listings={{results:[listing]}}/>
+            <Listings listings={(listing != null)?{results:[listing]}:{results:[]}}/>
         </>
     );
 }
