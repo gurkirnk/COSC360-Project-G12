@@ -33,6 +33,7 @@ export default function AdminUserDeletePage() {
         }
     }
 
+    //TODO: Nicer handling for failed searches
     if (!userInfo.id) {
         return <h1>Loading...</h1>
     }

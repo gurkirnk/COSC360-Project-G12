@@ -36,7 +36,7 @@ export default function HomePage() {
         <form className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
         </form>
-      </>}
+      </>} //TODO: INput validation for userIds/Listing ids (exactly 24 non-special characters)
       adminComponent={<>
         <h1 className="BigTitle">Welcome, Admin</h1>
         <form className="SearchForm">
