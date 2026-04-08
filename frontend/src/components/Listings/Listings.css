@@ -1,0 +1,92 @@
+.listings-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.listing-card {
+  flex: 0 1 calc(50% - 0.75rem);
+  min-width: 260px;
+  background-color: #ffffff;
+  border: 1px solid #e8e4dc;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.listing-card:hover {
+  border-color: #b8a48e;
+  box-shadow: 0 2px 8px rgba(92, 74, 50, 0.1);
+}
+
+.listing-card h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.25rem;
+}
+
+.listing-card h2 a {
+  color: #2c1e0f;
+  text-decoration: none;
+}
+
+.listing-card h2 a:hover {
+  color: #5c4a32;
+  text-decoration: underline;
+}
+
+.listing-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4a3728;
+}
+
+.listing-card .listing-description {
+  color: #6b5740;
+  font-style: italic;
+}
+
+.listing-card .listing-meta {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0ebe3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.listing-card .listing-actions {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.listing-card .listing-actions a {
+  color: #5c4a32;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.listing-card .listing-actions a:hover {
+  text-decoration: underline;
+}
+
+.listing-card .listing-actions .action-delete {
+  color: #b42318;
+}
+
+.listings-empty {
+  text-align: center;
+  padding: 3rem 0;
+  color: #6b5740;
+}
+
+@media (max-width: 600px) {
+  .listing-card {
+    flex: 1 1 100%;
+  }
+}
