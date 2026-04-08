@@ -1,0 +1,69 @@
+import { useState } from "react";
+import { createListing } from "../../lib/api/features/list";
+import { useAuth } from "../../contexts/useAuth";
+import "./CreateListingPage.css";
+
+export default function CreateListingPage() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <h1>Please sign in to create listings</h1>;
+  }
+
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get("title")?.toString().trim() ?? "";
+    const genre = formData.get("genre")?.toString().trim() ?? "";
+    const format = formData.get("format")?.toString() ?? "";
+    const description = formData.get("description")?.toString() ?? "";
+
+    setErrorMessage("");
+    setSuccessMessage("");
+    setIsSubmitting(true);
+
+    try {
+      await createListing({ title, genre, format, description });
+      setSuccessMessage("Listing successful.");
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <div className="create-listing-page">
+      <h1>Create Listing</h1>
+      <form onSubmit={handleRegisterSubmit}>
+        <label htmlFor="title">
+          Title:
+          <input id="title" type="text" name="title" required />
+        </label>
+        <label htmlFor="genre">
+          Genre:
+          <input id="genre" type="text" name="genre" required />
+        </label>
+        <label htmlFor="format">
+          Format:
+          <select id="format" name="format" required>
+            <option>Paperback</option>
+            <option>Hardcover</option>
+            <option>Mass Market Paperback</option>
+          </select>
+        </label>
+        <label htmlFor="description">
+          Description:
+          <input id="description" type="text" name="description" />
+        </label>
+        <input type="submit" value={isSubmitting ? "Submitting..." : "Submit"} disabled={isSubmitting} />
+      </form>
+      {errorMessage ? <p className="message-error">{errorMessage}</p> : null}
+      {successMessage ? <p className="message-success">{successMessage}</p> : null}
+    </div>
+  );
+}
