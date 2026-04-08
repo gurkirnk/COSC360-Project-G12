@@ -27,10 +27,10 @@ export default function BrowsePage() {
 
 
   return (
-    <>
-      <h1>Browse</h1>
+    <div className="page-container">
+      <h1 style={{ fontFamily: "Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif" }}>Browse Listings</h1>
       <SearchBar SearchBarClicked={(newSearch) => setSearchParams({search: newSearch, genre: genre})} />
       <Listings listings = {listings} />
-    </>
+    </div>
   );
 }
