@@ -1,1 +1,1 @@
-export { createListing, editListing, deleteListing, browseListings, browseListingsById, browseListingsByUserId } from "./list";
+export { createListing, editListing, deleteListing, browseListings, browseListingsById, browseListingsByUserId, adminDeleteListing } from "./list";

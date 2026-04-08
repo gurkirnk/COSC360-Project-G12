@@ -62,7 +62,6 @@ export default function ListEditPage() {
         }
     }
 
-    //TODO: Change input types
     return (
         <>
             <h1>Edit Listing</h1>

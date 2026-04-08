@@ -1,4 +1,5 @@
-export const adminController = async (req, res) => {
+import {adminRemoveUserById, adminRemoveListing, adminRetrieveUserById, adminRetrieveUserByEmail, adminRetrieveUserByName} from "./adminService.js"
+export async function adminStatus(req, res){
   try {
     // req.user is set by requireAdminAuth
     return res.status(200).json({ message: "Hello admin", user: req.user });
@@ -7,3 +8,76 @@ export const adminController = async (req, res) => {
     return res.status(500).json({ message: "Failed" });
   }
 };
+
+export async function adminRemoveUser(req, res){
+  try {
+    const id = req.body.id;
+    const result = await adminRemoveUserById(id);
+    return res.status(201).json({ message: "Deletion Successful", data: result });
+  } catch (err) {
+    console.error("adminController error:", err);
+    return res.status(500).json({ message: err.message});
+  }
+};
+
+export async function adminDeleteListing(req,res){
+  try {
+    const id = req.body.id;
+    const result = await adminRemoveListing(id);
+    return res.status(201).json({ message: "Deletion Successful", data: result });
+  } catch (err) {
+    console.error("adminController error:", err);
+    return res.status(500).json({ message: err.message});
+  }
+}
+export async function adminGetUser(req,res){
+  try {
+      const id = req.query.id;
+      const result = await adminRetrieveUserById(id);
+      
+      return res.status(200).json({
+        message: "Retrieved matching user",
+        data: result,
+      });
+    } catch (error) {
+      console.error("adminGetUser error:", error);
+  
+      return res.status(500).json({
+        message: "Could not retrieve user",
+      });
+    }
+}
+export async function adminGetUserByName(req,res){
+  try {
+      const name = req.query.name;
+      const result = await adminRetrieveUserByName(name);
+      
+      return res.status(200).json({
+        message: "Retrieved matching user",
+        data: result,
+      });
+    } catch (error) {
+      console.error("adminGetUser error:", error);
+  
+      return res.status(500).json({
+        message: "Could not retrieve user",
+      });
+    }
+}
+export async function adminGetUserByEmail(req,res){
+  try {
+      const email = req.query.email;
+      const result = await adminRetrieveUserByEmail(email);
+      
+      return res.status(200).json({
+        message: "Retrieved matching user",
+        data: result,
+      });
+    } catch (error) {
+      console.error("adminGetUser error:", error);
+  
+      return res.status(500).json({
+        message: "Could not retrieve user",
+      });
+    }
+}

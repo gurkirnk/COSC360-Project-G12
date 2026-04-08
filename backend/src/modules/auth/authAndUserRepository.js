@@ -1,5 +1,6 @@
 import { connectMongoose } from "../../db/mongoClient.js";
 import { User } from "./userModel.js";
+import bcrypt from "bcrypt";
 
 export async function createUser({ name, email, password: hashedPassword, role, profilePictureLink = null }) {
   await connectMongoose();
@@ -51,4 +52,33 @@ export async function findUserById(id) {
 
   const user = await User.findById(id);
   return user ? user.toJSON() : null;
+}
+
+export async function removeUserById(id) {
+  await connectMongoose();
+  
+  const deletedUser = await User.findByIdAndDelete(id);
+  return deletedUser? deletedUser.toJSON() : null;
+}
+
+export async function seedAdmin() {
+  try {
+    await connectMongoose();
+    const adminExists = await User.findOne({ role: 'admin' });
+    
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PWD, 10);
+      await User.create({
+        name: 'admin',
+        email: process.env.ADMIN_EMAIL,
+        hashedPassword: hashedPassword,
+        role: 'admin'
+      });
+      console.log('Admin user seeded successfully');
+    } else {
+      console.log('Admin user already exists');
+    }
+  } catch (error) {
+    console.error('Error seeding admin:', error);
+  }
 }

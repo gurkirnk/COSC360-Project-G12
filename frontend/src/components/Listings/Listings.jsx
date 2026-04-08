@@ -2,21 +2,24 @@ import { useAuth } from "../../contexts/useAuth";
 
 //For creating a visually pleasing list, takes the results of a browse query.
 export default function Listings({ listings }) {
-    const {user, isAuthenticated} = useAuth();
+    const {user, isAuthenticated, isAdmin} = useAuth();
     return (
         <div>
-            {listings?.results.map((item) => (
+            {
+            listings?.results.map((item) => (
                 <div class="listing" key={item._id}>
-                    <h2>{item.title}</h2>
+                    <h2><a href={"/listView?id="+item._id}>{item.title}</a></h2>
                     <p><strong>Genre:</strong> {item.genre}</p>
                     <p><strong>Format:</strong> {item.format}</p>
                     <p>"{item.description}"</p>
                     <small>
                         Added: {new Date(item.createdAt).toLocaleDateString()}
                     </small>
-                    <p>{(isAuthenticated && item.userId == user?.id)?<><a href={"/listEdit?id="+item._id}>Edit Listing</a> |  <a href={"/listDelete?id="+item._id}>Delete Listing</a></>:<></> }</p>
+                    <p>{(isAuthenticated && (item.userId == user?.id))?<><a href={"/listEdit?id="+item._id}>Edit Listing</a> |  <a href={"/listDelete?id="+item._id}>Delete Listing</a></>:<></> }</p>
+                    {(isAdmin)?<p><a href={"/listDelete?id="+item._id}>Delete Listing</a></p>:<></>}
                 </div>
-            ))}
+            ))
+            }
             {
                 listings?.results.length == 0 ? <h2>No Results Found</h2> : <></>
             }
