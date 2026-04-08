@@ -79,6 +79,16 @@
   color: #b42318;
 }
 
+.listing-full {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e8e4dc;
+}
+
 .listings-empty {
   text-align: center;
   padding: 3rem 0;

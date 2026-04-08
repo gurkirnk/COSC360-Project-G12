@@ -2,7 +2,7 @@ import { useAuth } from "../../contexts/useAuth";
 import "./Listings.css";
 
 //For creating a visually pleasing list, takes the results of a browse query.
-export default function Listings({ listings }) {
+export default function Listings({ listings, variant  }) {
     const {user, isAuthenticated, isAdmin} = useAuth();
     if (!listings) return null;
 
@@ -13,7 +13,7 @@ export default function Listings({ listings }) {
     return (
         <div className="listings-grid">
             {listings.results.map((item) => (
-                <div className="listing-card" key={item._id}>
+                <div className={variant === "full" ? "listing-full" : "listing-card"} key={item._id}>
                     <h2>
                         <a href={"/listView?id=" + item._id}>{item.title}</a>
                     </h2>
