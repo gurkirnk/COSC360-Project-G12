@@ -44,14 +44,14 @@ export default function HomePage() {
   return (
     <RoleSwitcher
       guestComponent={<>
-        <h1 className="BigTitle">Book Borrowing Site</h1>
+        <h1 className="BigTitle">Book Nook</h1>
         <h2 className="DaSubtitle">COSC 360 Team 12</h2>
         <form className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
         </form>
       </>}
       userComponent={<>
-        <h1 className="BigTitle">Book Borrowing Site</h1>
+        <h1 className="BigTitle">Book Nook</h1>
         <h2 className="DaSubtitle">COSC 360 Team 12</h2>
         <form className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
