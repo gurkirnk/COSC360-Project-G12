@@ -7,9 +7,10 @@ const adminRoutes = Router();
 // GET /auth/admin - admin only demo
 adminRoutes.get("/", requireAdminAuth, adminStatus);
 
-adminRoutes.get("/user/id", requireAdminAuth, adminGetUser);
-adminRoutes.get("/user/name", requireAdminAuth, adminGetUserByName);
-adminRoutes.get("/user/email", requireAdminAuth, adminGetUserByEmail);
+//TODO: These gets should probably be moved out of the admin auth folder, but in the interest of time, I'm leaving them here
+adminRoutes.get("/user/id",  adminGetUser);
+adminRoutes.get("/user/name",  adminGetUserByName);
+adminRoutes.get("/user/email",  adminGetUserByEmail);
 adminRoutes.delete("/user", requireAdminAuth, adminRemoveUser);
 
 adminRoutes.delete("/listing", requireAdminAuth, adminDeleteListing);

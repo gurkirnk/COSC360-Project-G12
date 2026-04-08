@@ -49,9 +49,6 @@ export default function ViewProfilePage() {
     if (!isAuthenticated) {
         return <NotAllowedPage details="You must be logged in to view this page." />;
     }
-    if (!isAdmin) {
-        return <NotAllowedPage details="You must be an admin to access this page." />;
-    }
     if(!userInfo.id){//if there is no userInfo.id, then fetching is complete (no longer default), but we failed to find a user
         return <ErrorPage details="Could not find user."/>
     }
@@ -76,9 +73,14 @@ export default function ViewProfilePage() {
                     ))}
                 </dl>
 
-                <label for="delete">Delete User? This Cannot Be undone</label>
-                <button onClick={handleDelete}>Delete</button>
-                <p>{deleteStatus}</p>
+                
+                {isAdmin?
+                <>
+                    <label for="delete">Delete User? This Cannot Be undone</label>
+                    <button onClick={handleDelete}>Delete</button>
+                    <p>{deleteStatus}</p>
+                </>
+                :<></>}
             </div>
         </section>
     );
