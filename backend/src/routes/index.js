@@ -13,6 +13,5 @@ router.use("/auth", authRoutes);
 router.use("/list", listRoutes);
 router.use("/images", imageRouter);
 router.use("/comments", commentRoutes);
-router.use("/messages", messageRoutes);
 
 export default router;
