@@ -1,0 +1,24 @@
+.edit-listing-page {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1.5rem;
+}
+
+.edit-listing-page h1 {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  margin-bottom: 1.5rem;
+}
+
+.edit-listing-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-listing-page label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
