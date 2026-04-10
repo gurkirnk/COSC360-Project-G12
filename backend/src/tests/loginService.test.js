@@ -44,4 +44,54 @@ describe('Login Service', () => {
         expect(result.user.email).toBe('test@example.com');
     });
 
+    it('should return invalid message for missing email or password', async () => {
+        const mockUser = { 
+            id: '1', 
+            email: 'test@example.com', 
+            hashedPassword: 'hashedPassword', 
+            name: 'Test User' 
+        };
+        findUserCredentialsByEmail.mockResolvedValue(mockUser);
+        compare.mockResolvedValue(true);
+
+        await expect(login({ 
+            email: null, 
+            password: 'password123' 
+        })).rejects.toThrow('Email and password are required');
+        expect(findUserCredentialsByEmail).not.toHaveBeenCalled();
+
+        await expect(login({ 
+            email: 'test@example.com', 
+            password: null 
+        })).rejects.toThrow('Email and password are required');
+        expect(findUserCredentialsByEmail).not.toHaveBeenCalled();
+    });
+
+    it('should return invalid message for missing user', async () => {
+        const mockUser = null;
+        findUserCredentialsByEmail.mockResolvedValue(mockUser);
+        compare.mockResolvedValue(true);
+
+        await expect(login({ 
+            email: 'test@example.com', 
+            password: 'password123' 
+        })).rejects.toThrow('Invalid email or password.');
+    });
+
+    it('should return invalid message for invalid password', async () => {
+        const mockUser = { 
+            id: '1', 
+            email: 'test@example.com', 
+            hashedPassword: 'hashedPassword', 
+            name: 'Test User' 
+        };
+        findUserCredentialsByEmail.mockResolvedValue(mockUser);
+        compare.mockResolvedValue(false);
+
+        await expect(login({ 
+            email: 'test@example.com', 
+            password: 'password123' 
+        })).rejects.toThrow('Invalid email or password.');
+    });
+
 });
