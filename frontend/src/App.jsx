@@ -14,6 +14,7 @@ import ListDeletePage from './pages/ListDeletePage'
 import ViewProfilePage from './pages/ViewProfilePage'
 import AdminListDeletePage from './pages/AdminListDeletePage'
 import ViewListingPage from './pages/ViewListingPage'
+import EditProfilePage from './pages/EditProfilePage'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path ="/user" element={<ViewProfilePage/>} />
         <Route path ="/listDelete" element = {<AdminListDeletePage/>} />
         <Route path ="/listView" element={<ViewListingPage/>} />
+        <Route path = "/profile/edit" element={<EditProfilePage/>} />
       </Route>
     </Routes>
   )

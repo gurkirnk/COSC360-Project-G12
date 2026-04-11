@@ -16,6 +16,14 @@ export async function createUser({ name, email, password: hashedPassword, role, 
   return user.toJSON();
 }
 
+export async function editUser({ name, email, hashedPassword, role, profilePictureLink = null, id }) {
+  await connectMongoose();
+
+  const user = await User.findByIdAndUpdate(id, {name:name, email:email, hashedPassword:hashedPassword, role:role, profilePictureLink: profilePictureLink},  { new: true, runValidators: true });
+
+  return user.toJSON();
+}
+
 export async function findUserByEmail(email) {
   await connectMongoose();
 

@@ -16,6 +16,8 @@ export default function ProfilePage() {
       <div className="profile-card">
         <h1>Profile</h1>
 
+        <h6><a href="/profile/edit">Edit Profile</a></h6>
+
         {user.profilePictureLink ? (
           <div className="profile-profile-picture">
             <img src={user.profilePictureLink} alt={`${user.name ?? "User"}'s profile picture`} />
