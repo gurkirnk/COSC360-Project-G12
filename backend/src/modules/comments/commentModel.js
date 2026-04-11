@@ -49,11 +49,10 @@ const commentSchema = new mongoose.Schema(
   }
 );
 
-commentSchema.pre('validate', function(next) {
+commentSchema.pre("validate", function () {
   if (!this.listingId && !this.parentCommentId) {
-    return next(new Error('Either listingId or parentCommentId must be populated'));
+    throw new Error("Either listingId or parentCommentId must be populated");
   }
-  return next();
 });
 
 export const Comment =
