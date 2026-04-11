@@ -1,6 +1,18 @@
 import { getDb } from "../../db/mongoClient.js";
 import { ObjectId } from 'mongodb'
 
+function normalizeIdInput(idOrQuery) {
+  if (idOrQuery && typeof idOrQuery === "object" && "id" in idOrQuery) {
+    return idOrQuery.id;
+  }
+
+  return idOrQuery;
+}
+
+function toObjectId(idOrQuery) {
+  return new ObjectId(normalizeIdInput(idOrQuery));
+}
+
 export async function createListing({ title, genre, format, description, userId }) {
   const db = await getDb();
   const document = {
@@ -20,13 +32,13 @@ export async function createListing({ title, genre, format, description, userId 
     format: document.format,
     description: document.description,
     createdAt: document.createdAt,
-    userId: document.userId
+    userId: document.userId,
   };
 }
 
 export async function editListing({ title, genre, format, description, listingId }) {
   const db = await getDb();
-  const filter = { _id: new ObjectId(listingId) }
+  const filter = { _id: toObjectId(listingId) }
   const document = {
     $set: {
       title: title,
@@ -42,7 +54,7 @@ export async function editListing({ title, genre, format, description, listingId
 
 export async function deleteListing(listingId) {
   const db = await getDb();
-  const filter = { _id: new ObjectId(listingId) }
+  const filter = { _id: toObjectId(listingId) }
 
   const result = await db.collection("listings").deleteOne(filter);
   return result;
@@ -50,7 +62,7 @@ export async function deleteListing(listingId) {
 
 export async function findListingById(listingId) {
   const db = await getDb();
-  const filter = { _id: new ObjectId(listingId) };
+  const filter = { _id: toObjectId(listingId) };
   const result = await db.collection("listings").findOne(filter);
   return result;
 }
@@ -77,12 +89,9 @@ export async function getListings({ search, genre }) {
 
 export async function getListingsByUserId(id) {
   const db = await getDb();
-
-  const query = {};
-
-  if (search) {
-    query.userId = id;
-  }
+  const query = {
+    userId: normalizeIdInput(id),
+  };
 
   const results = await db
     .collection("listings")
@@ -96,7 +105,7 @@ export async function getListingsById(id) {
   const db = await getDb();
 
   const query = {};
-  query._id = new ObjectId(id);
+  query._id = toObjectId(id);
 
   const results = await db
     .collection("listings")
