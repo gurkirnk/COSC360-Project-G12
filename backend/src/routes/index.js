@@ -4,7 +4,7 @@ import authRoutes from "../modules/auth/authRoutes.js";
 import listRoutes from "../modules/listing/listRoutes.js";
 import imageRouter from "../modules/images/imageRouter.js";
 import commentRoutes from "../modules/comments/commentRoutes.js";
-import messageRoutes from "../modules/messages/messageRoutes.js";
+// import messageRoutes from "../modules/messages/messageRoutes.js";
 
 const router = Router();
 

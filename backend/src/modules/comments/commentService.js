@@ -3,10 +3,15 @@ import {
   createCommentRecord,
   findCommentById,
   findCommentsByListingId,
+  markCommentDeleted,
 } from "./commentRepository.js";
 
 function toCommentObject(comment) {
   const plain = comment.toJSON();
+  if (plain.deletedAt) {
+    plain.body = "this comment was deleted";
+    plain.authorId = null;
+  }
   plain.replies = [];
   return plain;
 }
@@ -94,6 +99,12 @@ export async function addComment(commentInput) {
       });
     }
 
+    if (parentComment.deletedAt) {
+      throw Object.assign(new Error("Cannot reply to a deleted comment"), {
+        statusCode: 410,
+      });
+    }
+
     if (rawListingId) {
       assertValidObjectId(rawListingId, "listingId");
 
@@ -129,4 +140,42 @@ export async function addComment(commentInput) {
   });
 
   return toCommentObject(createdComment);
+}
+
+export async function deleteComment(commentId, authorId) {
+  if (!commentId) {
+    throw Object.assign(new Error("commentId is required"), {
+      statusCode: 400,
+    });
+  }
+
+  assertValidObjectId(commentId, "commentId");
+
+  const comment = await findCommentById(commentId);
+
+  if (!comment) {
+    throw Object.assign(new Error("Comment not found"), {
+      statusCode: 404,
+    });
+  }
+
+  if (comment.deletedAt) {
+    return toCommentObject(comment);
+  }
+
+  if (!authorId) {
+    throw Object.assign(new Error("authorId is required"), {
+      statusCode: 400,
+    });
+  }
+
+  if (comment.authorId?.toString?.() !== authorId.toString()) {
+    throw Object.assign(new Error("Forbidden"), {
+      statusCode: 403,
+    });
+  }
+
+  // doing soft delete to preserve comment chain structure - the comment will be marked as deleted and its body will not be shown, but it will still exist in the database and can be returned in the comment chain (with a "this comment was deleted" body) to avoid orphaning replies
+  const deletedComment = await markCommentDeleted(commentId);
+  return toCommentObject(deletedComment);
 }

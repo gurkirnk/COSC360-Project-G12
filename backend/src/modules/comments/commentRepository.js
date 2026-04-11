@@ -6,7 +6,6 @@ export async function findCommentsByListingId(listingId) {
 
   return Comment.find({
     listingId,
-    deletedAt: null,
   })
     .sort({ createdAt: 1 })
     .populate("authorId", "name profilePictureLink role")
@@ -17,7 +16,22 @@ export async function findCommentById(commentId) {
   await connectMongoose();
 
   return Comment.findById(commentId)
-    .select("listingId parentCommentId deletedAt")
+    .select("listingId parentCommentId deletedAt authorId body")
+    .exec();
+}
+
+export async function markCommentDeleted(commentId, deletedAt = new Date()) {
+  await connectMongoose();
+
+  return Comment.findByIdAndUpdate(
+    commentId,
+    {
+      $set: {
+        deletedAt,
+      },
+    },
+    { returnDocument: "after" }
+  )
     .exec();
 }
 
