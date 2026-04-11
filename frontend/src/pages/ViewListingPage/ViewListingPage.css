@@ -1,0 +1,110 @@
+.page {
+  min-height: 100%;
+  padding: 2.5rem 0 3rem;
+}
+
+.shell {
+  width: min(100%, 55rem);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  border-radius: 10px;
+}
+
+.title {
+  margin: 0;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  color: #2c1e0f;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.text-muted {
+  margin: 0;
+  color: #6b5740;
+  line-height: 1.6;
+}
+
+.back-link {
+  justify-self: start;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.card .button,
+.card button.button {
+  padding: 0.55rem 1rem;
+  border: 1px solid #b8a48e;
+  border-radius: 999px;
+  background: #fffaf4;
+  color: #5c4a32;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.badge {
+  display: inline-flex;
+  justify-self: start;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: #f5efe6;
+  color: #5c4a32;
+  font-size: 0.85rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+
+.tile,
+.note,
+.card textarea {
+  padding: 0.9rem 1rem;
+  background: #fcfaf7;
+  border: 1px solid #f0ebe3;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.section,
+.stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.section {
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0ebe3;
+}
+
+form.stack label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.error,
+.danger {
+  background: #fff6f4;
+  color: #9f2f24;
+  border-color: #e7c2bc;
+}
+
+.success {
+  background: #eef8f0;
+  color: #25643a;
+  border-color: #c9ddcd;
+}
