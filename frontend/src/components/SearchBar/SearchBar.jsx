@@ -16,7 +16,7 @@ export default function SearchBar({ SearchBarClicked }) {
       <input
         type="text"
         className="search-input"
-        placeholder="Search for a book..."
+        placeholder="Enter Search Here..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}

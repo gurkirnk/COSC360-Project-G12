@@ -46,42 +46,42 @@ export default function HomePage() {
       guestComponent={<>
         <h1 className="BigTitle">Book Nook</h1>
         <h2 className="DaSubtitle">COSC 360 Team 12</h2>
-        <form className="SearchForm">
+        <div className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
-        </form>
+        </div>
       </>}
       userComponent={<>
         <h1 className="BigTitle">Book Nook</h1>
         <h2 className="DaSubtitle">COSC 360 Team 12</h2>
-        <form className="SearchForm">
+        <div className="SearchForm">
           <SearchBar SearchBarClicked={handleSearch} />
-        </form>
+        </div>
       </>}
       adminComponent={<>
         <h1 className="BigTitle">Welcome, Admin</h1>
-        <form className="SearchForm">
+        <div className="SearchForm">
           <label htmlFor="listingName">Search Listings By Name</label>
           <SearchBar id="listingName" SearchBarClicked={handleSearch} />
-        </form>
-        <form className="SearchForm">
+        </div>
+        <div className="SearchForm">
           <label htmlFor="userId">Find User By Id</label>
           <SearchBar id="userId" SearchBarClicked={handleUserDelete} />
           <p>{userIdError}</p>
-        </form>
-        <form className="SearchForm">
+        </div>
+        <div className="SearchForm">
           <label htmlFor="listingId">Find Listing By Id</label>
-          <SearchBar if="listingId" SearchBarClicked={handleListingDelete} />
+          <SearchBar id="listingId" SearchBarClicked={handleListingDelete} />
           <p>{listingIdError}</p>
-        </form>
-        <form className="SearchForm">
-          <label htmlFor="listingName">Search Users By Name</label>
-          <SearchBar id="listingName" SearchBarClicked={handleNameSearch} />
-        </form>
-        <form className="SearchForm">
-          <label htmlFor="listingName">Search Users By Email</label>
-          <SearchBar id="listingName" SearchBarClicked={handleEmailSearch} />
+        </div>
+        <div className="SearchForm">
+          <label htmlFor="usersName">Search Users By Name</label>
+          <SearchBar id="usersName" SearchBarClicked={handleNameSearch} />
+        </div>
+        <div className="SearchForm">
+          <label htmlFor="usersEmail">Search Users By Email</label>
+          <SearchBar id="usersEmail" SearchBarClicked={handleEmailSearch} />
           <p>{emailError}</p>
-        </form>
+        </div>
       </>}
     />
   );
