@@ -5,4 +5,4 @@ To ensure you are running it with the most recent version of the frontend and ba
 
 Default initial admin credentials are 'admin@admin.com' and 'apassword', they can and should be changed in the '/backend/.env' file.
 
-Proof of testing can be found in the 'Documentation' folder.
+Proof of testing and copies of documentation can be found in the 'Documentation' folder.
