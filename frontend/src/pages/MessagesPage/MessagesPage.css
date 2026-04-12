@@ -1,0 +1,156 @@
+.messages-page {
+  min-height: 100%;
+  padding: 2.5rem 0 3rem;
+}
+
+.messages-shell {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.messages-action {
+  justify-self: start;
+  border: 1px solid #b8a48e;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  background: #fffaf4;
+  text-decoration: none;
+}
+
+.messages-panel,
+.messages-note,
+.messages-summary > div,
+.messages-stack article,
+.messages-inbox-item {
+  border: 1px solid #f0ebe3;
+  border-radius: 10px;
+  background: #fcfaf7;
+}
+
+.messages-panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-color: #e8e4dc;
+}
+
+.messages-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.messages-header h1,
+.messages-header p,
+.messages-panel h2,
+.messages-panel p,
+.messages-stack article p {
+  margin: 0;
+}
+
+.messages-header p,
+.messages-summary span,
+.messages-inbox-item span {
+  color: #6b5740;
+}
+
+.messages-header p {
+  margin-top: 0.4rem;
+}
+
+.messages-note {
+  padding: 0.9rem 1rem;
+}
+
+.messages-note[data-tone="error"] {
+  background: #fff6f4;
+  border-color: #e7c2bc;
+  color: #9f2f24;
+}
+
+.messages-note[data-tone="success"] {
+  background: #eef8f0;
+  border-color: #c9ddcd;
+  color: #25643a;
+}
+
+.messages-section {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+  border: 0;
+  border-top: 1px solid #f0ebe3;
+  border-radius: 0;
+  background: transparent;
+}
+
+.messages-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+
+.messages-summary > div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem;
+}
+
+.messages-summary span {
+  font-size: 0.85rem;
+}
+
+.messages-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.messages-controls label,
+.messages-section form,
+.messages-section form label,
+.messages-inbox-item > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.messages-controls label {
+  width: min(100%, 14rem);
+}
+
+.messages-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.messages-stack article {
+  width: min(100%, 40rem);
+  padding: 0.95rem 1rem;
+}
+
+.messages-stack article[data-own="true"] {
+  justify-self: end;
+  background: #f3ede3;
+  border-color: #d9c9af;
+}
+
+.messages-inbox-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.messages-inbox-item:hover {
+  border-color: #b8a48e;
+  background: #fffaf4;
+}
