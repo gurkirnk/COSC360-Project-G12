@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getUserById, deleteUser, getUserByName, getUserByEmail } from "../lib/api/features/user/user"
 import ErrorPage from "./ErrorPage";
+import NotAllowedPage from "./NotAllowedPage";
 
 export default function ViewProfilePage() {
     const { user, isAuthenticated, isAdmin } = useAuth();

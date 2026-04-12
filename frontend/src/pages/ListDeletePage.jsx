@@ -3,6 +3,7 @@ import { deleteListing } from "../lib/api/features/list";
 import { useEffect } from "react";
 import { useAuth } from "../contexts/useAuth";
 import { useSearchParams } from "react-router-dom";
+import NotAllowedPage from "./NotAllowedPage";
 
 export default function ListDeletePage() {
     const [errorMessage, setErrorMessage] = useState("");
