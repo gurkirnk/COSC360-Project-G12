@@ -55,7 +55,7 @@ export async function getListings(req, res) {
 }
 export async function getListingsByUserId(req, res) {
   try {
-    const id = req.query;
+    const { id } = req.query;
     const result = await retrieveListingsByUserId(id);
     
     return res.status(200).json({
@@ -73,7 +73,7 @@ export async function getListingsByUserId(req, res) {
 
 export async function getListingsById(req, res) {
   try {
-    const id = req.query;
+    const { id } = req.query;
     const result = await retrieveListingsById(id);
     
     return res.status(200).json({

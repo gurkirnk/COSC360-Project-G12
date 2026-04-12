@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import { browseListingsById } from "../../lib/api/features/list";
 import { createComment, deleteComment, getCommentChainForListing } from "../../lib/api/features/comments";
 import { getUserById } from "../../lib/api/features/user";
+import { createConversation } from "../../lib/api/features/messages";
 import CommentThread from "../../components/Comments/CommentThread";
 import "./ViewListingPage.css";
 
@@ -69,6 +70,7 @@ function commitIfActive(isActive, action) {
 
 export default function ViewListingPage() {
   const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const listingId = searchParams.get("id") || "";
 
@@ -82,6 +84,7 @@ export default function ViewListingPage() {
   const [newCommentBody, setNewCommentBody] = useState("");
   const [notice, setNotice] = useState({ type: "", text: "" });
   const [pageError, setPageError] = useState("");
+  const [isStartingConversation, setIsStartingConversation] = useState(false);
 
   async function loadListing(currentListingId, isActive = () => true) {
     try {
@@ -247,6 +250,30 @@ export default function ViewListingPage() {
     setNotice({ type: "", text: "" });
   }
 
+  async function handleStartConversation() {
+    if (!listingId) {
+      return;
+    }
+
+    setIsStartingConversation(true);
+    setNotice({ type: "", text: "" });
+
+    try {
+      const conversation = await createConversation({ listingId });
+      const conversationIdentifier = conversation?.id ?? conversation?.conversation?.id ?? "";
+
+      if (!conversationIdentifier) {
+        throw new Error("Conversation could not be created");
+      }
+
+      navigate(`/messages/${encodeURIComponent(conversationIdentifier)}`);
+    } catch (error) {
+      setNotice({ type: "error", text: error.message });
+    } finally {
+      setIsStartingConversation(false);
+    }
+  }
+
   const isListingLoading = listing === undefined;
   const isCommentsLoading = comments === null;
   const listingIdentifier = getListingIdentifier(listing);
@@ -321,7 +348,26 @@ export default function ViewListingPage() {
                     Delete listing
                   </Link>
                 </div>
-              ) : null}
+              ) : (
+                <div className="row">
+                  {isAuthenticated ? (
+                    <button
+                      className="button"
+                      type="button"
+                      onClick={handleStartConversation}
+                      disabled={isStartingConversation}
+                    >
+                      {isStartingConversation
+                        ? "Opening chat..."
+                        : "Message to reserve book"}
+                    </button>
+                  ) : (
+                    <Link className="button" to="/login">
+                      Sign in to reserve
+                    </Link>
+                  )}
+                </div>
+              )}
             </>
           ) : null}
 
