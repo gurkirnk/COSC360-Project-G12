@@ -33,7 +33,7 @@ export default function Listings({ listings, variant  }) {
                                 </>
                             )}
                             {isAdmin && item.userId !== user?.id && (
-                                <a className="action-delete" href={"/listDelete?id=" + item._id}>Delete</a>
+                                <a className="action-delete" href={"/adminListDelete?id=" + item._id}>Delete</a>
                             )}
                         </div>
                     </div>
