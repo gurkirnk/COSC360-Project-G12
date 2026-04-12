@@ -8,7 +8,7 @@ import 'dotenv/config';
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:4000";
 
 app.use(
   cors({
