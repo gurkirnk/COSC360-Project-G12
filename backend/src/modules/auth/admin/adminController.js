@@ -1,4 +1,11 @@
-import {adminRemoveUserById, adminRemoveListing, adminRetrieveUserById, adminRetrieveUserByEmail, adminRetrieveUserByName} from "./adminService.js"
+import {
+  adminRemoveUserById,
+  adminRemoveListing,
+  adminRetrieveAnalytics,
+  adminRetrieveUserById,
+  adminRetrieveUserByEmail,
+  adminRetrieveUserByName,
+} from "./adminService.js"
 export async function adminStatus(req, res){
   try {
     // req.user is set by requireAdminAuth
@@ -80,4 +87,21 @@ export async function adminGetUserByEmail(req,res){
         message: "Could not retrieve user",
       });
     }
+}
+
+export async function adminGetAnalytics(req, res) {
+  try {
+    const result = await adminRetrieveAnalytics();
+
+    return res.status(200).json({
+      message: "Retrieved admin analytics",
+      data: result,
+    });
+  } catch (error) {
+    console.error("adminGetAnalytics error:", error);
+
+    return res.status(error.statusCode ?? 500).json({
+      message: error.message ?? "Could not retrieve analytics",
+    });
+  }
 }

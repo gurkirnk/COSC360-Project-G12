@@ -17,6 +17,7 @@ import ViewListingPage from './pages/ViewListingPage'
 import MessagesPage from './pages/MessagesPage'
 import EditProfilePage from './pages/EditProfilePage'
 import AdminPage from './pages/AdminPage/AdminPage'
+import AdminAnalyticsPage from './pages/AdminAnalyticsPage/AdminAnalyticsPage'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="listDelete" element={<ListDeletePage/>} />
         <Route path ="/user" element={<ViewProfilePage/>} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
         <Route path ="/admin/ListDelete" element = {<AdminListDeletePage/>} />
         <Route path ="/listView" element={<ViewListingPage/>} />
         <Route path="/messages" element={<MessagesPage />} />
