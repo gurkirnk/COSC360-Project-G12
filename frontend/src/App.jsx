@@ -32,7 +32,7 @@ function App() {
         <Route path="listEdit" element={<ListEditPage/>} />
         <Route path="listDelete" element={<ListDeletePage/>} />
         <Route path ="/user" element={<ViewProfilePage/>} />
-        <Route path ="/adminListDelete" element = {<AdminListDeletePage/>} />
+        <Route path ="/admin/ListDelete" element = {<AdminListDeletePage/>} />
         <Route path ="/listView" element={<ViewListingPage/>} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/messages/:conversationId" element={<MessagesPage />} />
