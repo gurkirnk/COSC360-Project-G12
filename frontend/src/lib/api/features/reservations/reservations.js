@@ -19,6 +19,14 @@ export async function createReservation({
   return response.data;
 }
 
+export async function getUserReservations() {
+  const response = await apiClient("/api/reservations/user", {
+    method: "GET",
+  });
+
+  return response.data;
+}
+
 export async function cancelReservation(reservationId) {
   const response = await apiClient(`/api/reservations/${reservationId}/cancel`, {
     method: "POST",

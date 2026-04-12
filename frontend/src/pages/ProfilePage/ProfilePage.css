@@ -4,8 +4,13 @@
   padding: 3rem 1.5rem 4rem;
 }
 
+.profile-layout {
+  width: min(100%, 72rem);
+  display: grid;
+  gap: 1.5rem;
+}
+
 .profile-card {
-  width: min(100%, 42rem);
   border: 1px solid #d7d7d7;
   border-radius: 10px;
   background: #ffffff;
@@ -65,4 +70,38 @@
 
 .profile-detail-row dd {
   margin: 0;
+}
+
+.profile-collections {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.profile-collection-card {
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.profile-section-header {
+  margin-bottom: 1rem;
+}
+
+.profile-section-header h2 {
+  margin: 0;
+  color: #333333;
+}
+
+.profile-collection-error {
+  margin: 0;
+  color: #b42318;
+}
+
+@media (min-width: 960px) {
+  .profile-layout {
+    grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
 }
