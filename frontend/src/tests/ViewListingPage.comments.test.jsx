@@ -22,6 +22,10 @@ vi.mock("../lib/api/features/user", () => ({
   getUserById: vi.fn(),
 }));
 
+vi.mock("../lib/api/features/messages", () => ({
+  createConversation: vi.fn(),
+}));
+
 import { useAuth } from "../contexts/useAuth";
 import { browseListingsById } from "../lib/api/features/list";
 import {
