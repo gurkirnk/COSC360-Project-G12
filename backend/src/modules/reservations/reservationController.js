@@ -2,7 +2,22 @@ import {
   cancelReservation,
   completeReservation,
   createReservation,
+  retrieveReservationsByBorrowerUserId,
 } from "./reservationService.js";
+
+export async function getUserReservations(req, res) {
+  try {
+    const result = await retrieveReservationsByBorrowerUserId(req.user?.sub);
+
+    return res.status(200).json({
+      message: "Reservations retrieved",
+      data: result,
+    });
+  } catch (error) {
+    console.error("reservationController error:", error);
+    return res.status(error.statusCode ?? 500).json({ message: error.message });
+  }
+}
 
 export async function createListingReservation(req, res) {
   try {

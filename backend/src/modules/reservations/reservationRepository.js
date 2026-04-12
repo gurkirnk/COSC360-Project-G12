@@ -22,6 +22,18 @@ export async function findReservationById(reservationId) {
   });
 }
 
+export async function findReservationsByBorrowerUserId(borrowerUserId) {
+  const db = await getDb();
+
+  return db
+    .collection("reservations")
+    .find({
+      borrowerUserId,
+    })
+    .sort({ createdAt: -1 })
+    .toArray();
+}
+
 export async function createReservationRecord({
   listingId,
   ownerUserId,

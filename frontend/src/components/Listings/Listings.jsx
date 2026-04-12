@@ -13,7 +13,7 @@ export default function Listings({ listings, variant  }) {
     return (
         <div className="listings-grid">
             {listings.results.map((item) => (
-                <div className={variant === "full" ? "listing-full" : "listing-card"} key={item._id}>
+                <div className={variant === "full" ? "listing-full" : "listing-card"} key={item.cardKey ?? item._id}>
                     <h2>
                         <a href={"/listView?id=" + item._id}>{item.title}</a>
                     </h2>

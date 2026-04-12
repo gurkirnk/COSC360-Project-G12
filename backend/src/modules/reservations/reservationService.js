@@ -5,6 +5,7 @@ import {
   createReservationRecord,
   findActiveReservationByListingId,
   findReservationById,
+  findReservationsByBorrowerUserId,
   updateReservationRecordStatus,
 } from "./reservationRepository.js";
 
@@ -43,6 +44,16 @@ function serializeReservation(reservation) {
     endsAt: reservation.endsAt,
     createdAt: reservation.createdAt,
     updatedAt: reservation.updatedAt,
+  };
+}
+
+export async function retrieveReservationsByBorrowerUserId(userId) {
+  requireUserId(userId);
+
+  const results = await findReservationsByBorrowerUserId(userId);
+
+  return {
+    results: results.map(serializeReservation),
   };
 }
 

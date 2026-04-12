@@ -4,10 +4,12 @@ import {
   cancelListingReservation,
   completeListingReservation,
   createListingReservation,
+  getUserReservations,
 } from "./reservationController.js";
 
 const reservationRoutes = Router();
 
+reservationRoutes.get("/user", requireAuth, getUserReservations);
 reservationRoutes.post("/", requireAuth, createListingReservation);
 reservationRoutes.post("/:reservationId/cancel", requireAuth, cancelListingReservation);
 reservationRoutes.post(
