@@ -57,7 +57,7 @@ export default function EditProfilePage() {
     }
 
     return (
-        <AuthPage title="Change your account details">
+        <AuthPage title="Edit Profile">
             <form className="auth-form" onSubmit={handleRegisterSubmit}>
                 <div className="field">
                     <label htmlFor="name">Name</label>
