@@ -14,6 +14,15 @@ export async function findActiveReservationByListingId(listingId) {
   });
 }
 
+export async function findActiveReservationByConversationId(conversationId) {
+  const db = await getDb();
+
+  return db.collection("reservations").findOne({
+    conversationId: toObjectId(conversationId),
+    status: "active",
+  });
+}
+
 export async function findReservationById(reservationId) {
   const db = await getDb();
 
