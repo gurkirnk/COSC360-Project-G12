@@ -40,7 +40,7 @@ export default function EditProfilePage() {
                 password: formdata.password,
                 profilePicture: profilePicture
             });
-            setSuccessMessage(`Registration successful. Welcome, ${result.user?.name ?? name}.`);
+            setSuccessMessage(`Edit successful. You're good to go, ${result.user?.name ?? name}.`);
         } catch (error) {
             setErrorMessage(error.message);
         } finally {
@@ -57,7 +57,7 @@ export default function EditProfilePage() {
     }
 
     return (
-        <AuthPage title="Register">
+        <AuthPage title="Change your account details">
             <form className="auth-form" onSubmit={handleRegisterSubmit}>
                 <div className="field">
                     <label htmlFor="name">Name</label>
