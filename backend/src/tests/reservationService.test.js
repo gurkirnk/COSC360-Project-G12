@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   cancelReservation,
   createReservation,
+  retrieveReservationsByBorrowerUserId,
 } from "../modules/reservations/reservationService.js";
 import { findListingById } from "../modules/listing/listRepository.js";
 import { findConversationById } from "../modules/messages/messageRepository.js";
@@ -9,6 +10,7 @@ import {
   createReservationRecord,
   findActiveReservationByListingId,
   findReservationById,
+  findReservationsByBorrowerUserId,
   updateReservationRecordStatus,
 } from "../modules/reservations/reservationRepository.js";
 
@@ -24,6 +26,7 @@ vi.mock("../modules/reservations/reservationRepository.js", () => ({
   createReservationRecord: vi.fn(),
   findActiveReservationByListingId: vi.fn(),
   findReservationById: vi.fn(),
+  findReservationsByBorrowerUserId: vi.fn(),
   updateReservationRecordStatus: vi.fn(),
 }));
 
@@ -85,6 +88,37 @@ describe("reservationService", () => {
       id: RESERVATION_ID,
       status: "active",
       borrowerUserId: BORROWER_ID,
+    });
+  });
+
+  it("retrieves reservations for a borrower", async () => {
+    findReservationsByBorrowerUserId.mockResolvedValue([
+      {
+        _id: { toString: () => RESERVATION_ID },
+        listingId: { toString: () => LISTING_ID },
+        ownerUserId: OWNER_ID,
+        borrowerUserId: BORROWER_ID,
+        conversationId: { toString: () => CONVERSATION_ID },
+        status: "active",
+        durationDays: 14,
+        startsAt: new Date("2026-04-11T08:00:00.000Z"),
+        endsAt: new Date("2026-04-25T08:00:00.000Z"),
+        createdAt: new Date("2026-04-11T08:00:00.000Z"),
+        updatedAt: new Date("2026-04-11T08:00:00.000Z"),
+      },
+    ]);
+
+    const result = await retrieveReservationsByBorrowerUserId(BORROWER_ID);
+
+    expect(findReservationsByBorrowerUserId).toHaveBeenCalledWith(BORROWER_ID);
+    expect(result).toMatchObject({
+      results: [
+        expect.objectContaining({
+          id: RESERVATION_ID,
+          listingId: LISTING_ID,
+          borrowerUserId: BORROWER_ID,
+        }),
+      ],
     });
   });
 
