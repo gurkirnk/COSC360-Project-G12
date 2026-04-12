@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { findUserById } from "../auth/authAndUserRepository.js";
 import { findListingById } from "../listing/listRepository.js";
-import { findActiveReservationByListingId } from "../reservations/reservationRepository.js";
+import { findActiveReservationByConversationId } from "../reservations/reservationRepository.js";
 import {
   createConversationRecord,
   createMessageRecord,
@@ -116,7 +116,7 @@ async function hydrateConversationSummary(conversation, currentUserId) {
     findListingById(conversation.listingId.toString()),
     findUserById(conversation.ownerUserId),
     findUserById(conversation.participantUserId),
-    findActiveReservationByListingId(conversation.listingId.toString()),
+    findActiveReservationByConversationId(conversation._id?.toString?.() ?? conversation.id),
   ]);
 
   const counterpartId =
@@ -222,7 +222,7 @@ export async function getConversationDetails(conversationId, userId) {
   const [summary, messages, activeReservation] = await Promise.all([
     hydrateConversationSummary(conversation, userId),
     findMessagesByConversationId(conversationId),
-    findActiveReservationByListingId(conversation.listingId.toString()),
+    findActiveReservationByConversationId(conversationId),
   ]);
 
   return {
