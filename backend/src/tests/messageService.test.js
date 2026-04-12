@@ -1,16 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createConversationForListing,
+  getConversationDetails,
   sendMessageToConversation,
 } from "../modules/messages/messageService.js";
 import { findUserById } from "../modules/auth/authAndUserRepository.js";
 import { findListingById } from "../modules/listing/listRepository.js";
-import { findActiveReservationByListingId } from "../modules/reservations/reservationRepository.js";
+import { findActiveReservationByConversationId } from "../modules/reservations/reservationRepository.js";
 import {
   createConversationRecord,
   createMessageRecord,
   findConversationById,
   findConversationByParticipantsAndListing,
+  findMessagesByConversationId,
 } from "../modules/messages/messageRepository.js";
 
 vi.mock("../modules/auth/authAndUserRepository.js", () => ({
@@ -22,7 +24,7 @@ vi.mock("../modules/listing/listRepository.js", () => ({
 }));
 
 vi.mock("../modules/reservations/reservationRepository.js", () => ({
-  findActiveReservationByListingId: vi.fn(),
+  findActiveReservationByConversationId: vi.fn(),
 }));
 
 vi.mock("../modules/messages/messageRepository.js", () => ({
@@ -43,7 +45,7 @@ describe("messageService", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     findUserById.mockResolvedValue({ id: OWNER_ID, name: "User" });
-    findActiveReservationByListingId.mockResolvedValue(null);
+    findActiveReservationByConversationId.mockResolvedValue(null);
   });
 
   it("returns an existing listing conversation instead of creating a duplicate", async () => {
@@ -125,6 +127,88 @@ describe("messageService", () => {
       conversationId: CONVERSATION_ID,
       senderId: PARTICIPANT_ID,
       body: "Hello there",
+    });
+  });
+
+  it("does not attach another conversation's reservation to a new conversation", async () => {
+    const OTHER_CONVERSATION_ID = "507f1f77bcf86cd799439099";
+
+    findListingById.mockResolvedValue({
+      _id: { toString: () => LISTING_ID },
+      userId: OWNER_ID,
+      title: "Dune",
+      availabilityStatus: "available",
+    });
+    findConversationByParticipantsAndListing.mockResolvedValue(null);
+    createConversationRecord.mockResolvedValue({
+      _id: { toString: () => CONVERSATION_ID },
+      listingId: { toString: () => LISTING_ID },
+      ownerUserId: OWNER_ID,
+      participantUserId: PARTICIPANT_ID,
+      createdAt: new Date("2026-04-11T08:00:00.000Z"),
+      updatedAt: new Date("2026-04-11T08:00:00.000Z"),
+      lastMessageAt: null,
+    });
+
+    findActiveReservationByConversationId.mockImplementation(async (conversationId) => {
+      if (conversationId === OTHER_CONVERSATION_ID) {
+        return {
+          _id: { toString: () => "507f1f77bcf86cd799439013" },
+          listingId: { toString: () => LISTING_ID },
+          conversationId: { toString: () => OTHER_CONVERSATION_ID },
+          status: "active",
+        };
+      }
+
+      return null;
+    });
+
+    const result = await createConversationForListing({
+      listingId: LISTING_ID,
+      userId: PARTICIPANT_ID,
+    });
+
+    expect(findActiveReservationByConversationId).toHaveBeenCalledWith(CONVERSATION_ID);
+    expect(result.hasActiveReservation).toBe(false);
+  });
+
+  it("returns only the reservation linked to the requested conversation", async () => {
+    findConversationById.mockResolvedValue({
+      _id: { toString: () => CONVERSATION_ID },
+      listingId: { toString: () => LISTING_ID },
+      ownerUserId: OWNER_ID,
+      participantUserId: PARTICIPANT_ID,
+      createdAt: new Date("2026-04-11T08:00:00.000Z"),
+      updatedAt: new Date("2026-04-11T08:00:00.000Z"),
+      lastMessageAt: null,
+    });
+    findListingById.mockResolvedValue({
+      _id: { toString: () => LISTING_ID },
+      userId: OWNER_ID,
+      title: "Dune",
+    });
+    findMessagesByConversationId.mockResolvedValue([]);
+    findActiveReservationByConversationId.mockResolvedValue({
+      _id: { toString: () => "507f1f77bcf86cd799439013" },
+      listingId: { toString: () => LISTING_ID },
+      ownerUserId: OWNER_ID,
+      borrowerUserId: PARTICIPANT_ID,
+      conversationId: { toString: () => CONVERSATION_ID },
+      status: "active",
+      durationDays: 14,
+      startsAt: new Date("2026-04-11T08:00:00.000Z"),
+      endsAt: new Date("2026-04-25T08:00:00.000Z"),
+      createdAt: new Date("2026-04-11T08:00:00.000Z"),
+      updatedAt: new Date("2026-04-11T08:00:00.000Z"),
+    });
+
+    const result = await getConversationDetails(CONVERSATION_ID, PARTICIPANT_ID);
+
+    expect(findActiveReservationByConversationId).toHaveBeenCalledWith(CONVERSATION_ID);
+    expect(result.reservation).toMatchObject({
+      conversationId: CONVERSATION_ID,
+      borrowerUserId: PARTICIPANT_ID,
+      status: "active",
     });
   });
 });
