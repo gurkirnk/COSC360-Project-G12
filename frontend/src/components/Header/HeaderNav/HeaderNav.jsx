@@ -1,4 +1,4 @@
-import {AuthenticatedSwitcher} from '../../Switchers';
+import {AuthenticatedSwitcher, DisplayChildIfAdmin} from '../../Switchers';
 import './HeaderNav.css';
 import { NavLink } from 'react-router-dom';
 
@@ -10,6 +10,9 @@ export default function HeaderNav() {
         authenticatedComponent={
           <ul className="main-navigation-list">
             <li className="main-navigation-item"><NavLink to="/">Home</NavLink></li>
+            <DisplayChildIfAdmin>
+              <li className="main-navigation-item"><NavLink to="/admin">Admin Links</NavLink></li>
+            </DisplayChildIfAdmin>
             <li className="main-navigation-item"><NavLink to="/list">Make A Listing</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/browse">Browse</NavLink></li>
             <li className="main-navigation-item"><NavLink to="/messages">Messages</NavLink></li>
