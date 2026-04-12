@@ -15,6 +15,7 @@ import ViewProfilePage from './pages/ViewProfilePage'
 import AdminListDeletePage from './pages/AdminListDeletePage'
 import ViewListingPage from './pages/ViewListingPage'
 import MessagesPage from './pages/MessagesPage'
+import EditProfilePage from './pages/EditProfilePage'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path ="/listView" element={<ViewListingPage/>} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/messages/:conversationId" element={<MessagesPage />} />
+        <Route path = "/profile/edit" element={<EditProfilePage/>} />
       </Route>
     </Routes>
   )

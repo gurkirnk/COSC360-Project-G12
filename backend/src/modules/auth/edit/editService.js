@@ -1,0 +1,57 @@
+import { editUser, findUserByName, findUserByEmail } from "../authAndUserRepository.js";
+import { signToken } from "../tokens/jwt.js";
+import { USER } from "../roles.js";
+import { saveImageAndReturnUrl } from "../../images/imageService.js";
+import { normalizePicture } from "../../../utils/images.js";
+import bcrypt from "bcrypt";
+
+const MIN_PASSWORD_LENGTH = 6;
+const MIN_NAME_LENGTH = 3;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export async function edit({ name, email, password, profilePicture, id }) {
+  const normalizedName = typeof name === "string" ? name.trim().toLowerCase() : "";
+  const normalizedEmail = typeof email === "string" ? email.trim().toLowerCase() : "";
+  const normalizedPassword = typeof password === "string" ? password : "";
+  const normalizedProfilePicture = normalizePicture(profilePicture);
+
+  if (!normalizedName || !normalizedEmail || !normalizedPassword) {
+    throw Object.assign(new Error("Name, email, and password are required."), { statusCode: 400 });
+  }
+
+  if (normalizedName.length < MIN_NAME_LENGTH) {
+    throw Object.assign(new Error(`Name must be at least ${MIN_NAME_LENGTH} characters long.`), { statusCode: 400 });
+  }
+
+  if (!EMAIL_REGEX.test(normalizedEmail)) {
+    throw Object.assign(new Error("A valid email address is required."), { statusCode: 400 });
+  }
+
+  if (normalizedPassword.length < MIN_PASSWORD_LENGTH) {
+    throw Object.assign(new Error(`Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`), { statusCode: 400 });
+  }
+
+  const userByEmail = await findUserByEmail(normalizedEmail);
+  if (userByEmail && userByEmail.id != id) {
+    throw Object.assign(new Error("User already exists with this email."), { statusCode: 409 });
+  }
+  const userByName = await findUserByName(normalizedName);
+  if (userByName && userByName.id != id) {
+    throw Object.assign(new Error("User already exists with this name."), { statusCode: 409 });
+  }
+
+  const hashedPassword = await bcrypt.hash(normalizedPassword, 10);
+
+  const user = await editUser({
+    name: normalizedName,
+    email: normalizedEmail,
+    hashedPassword: hashedPassword,
+    role: USER,
+    profilePictureLink: normalizedProfilePicture ? await saveImageAndReturnUrl(normalizedProfilePicture) : null,
+    id,
+  });
+
+  const token = signToken({ sub: user.id, name: user.name, role: user.role }, { expiresIn: "7d" });
+
+  return { user, token };
+}

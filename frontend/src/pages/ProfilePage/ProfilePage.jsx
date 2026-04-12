@@ -14,7 +14,10 @@ export default function ProfilePage() {
   return (
     <section className="profile-page">
       <div className="profile-card">
-        <h1>Profile</h1>
+        <div className="profile-card-header">
+          <h1>Profile</h1>
+          <a className="profile-edit-link" href="/profile/edit">Edit Profile</a>
+        </div>
 
         {user.profilePictureLink ? (
           <div className="profile-profile-picture">

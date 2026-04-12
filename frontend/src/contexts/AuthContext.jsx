@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./auth-context";
-import { loginUser, logout as logoutRequest, registerUser } from "../lib/api/features/auth";
+import { loginUser, logout as logoutRequest, registerUser, edit} from "../lib/api/features/auth";
 import fancyLocalStorage, { getItem, removeItem, setItem } from "../lib/storage/fancyLocalStorage";
 import { AUTH_TOKEN, AUTH_USER } from "../lib/storage/localStorageVariables";
 
@@ -53,6 +53,12 @@ export function AuthProvider({ children }) {
     return data;
   }
 
+  async function editUser(credentials) {
+    const data = await edit(credentials);
+    persistAuth(data);
+    return data;
+  }
+
   async function login(credentials) {
     const data = await loginUser(credentials);
     persistAuth(data);
@@ -78,6 +84,7 @@ export function AuthProvider({ children }) {
     login,
     logout,
     register,
+    editUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

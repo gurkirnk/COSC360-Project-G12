@@ -13,7 +13,14 @@
   box-sizing: border-box;
 }
 
-.profile-card h1 {
+.profile-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.profile-card-header h1 {
   margin: 0 0 1.5rem;
   color: #333333;
 }
